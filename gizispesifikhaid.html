@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Detail Haid & Gizi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --haid-grad: linear-gradient(135deg, #FF7675 0%, #FF8E8E 100%);
+            --secondary-grad: linear-gradient(135deg, #636E72 0%, #2D3436 100%);
+            --haid-soft: #FFF5F7;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --danger: #FF7675;
+            --success: #00B894;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: #F8F9FD;
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header */
+        .header {
+            padding: 50px 20px 15px;
+            background: var(--white);
+            display: flex; align-items: center; gap: 15px;
+            border-bottom: 1px solid #F1F2F6;
+            z-index: 10;
+        }
+
+        .back-btn {
+            width: 35px; height: 35px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            background: #F1F2F6; cursor: pointer; color: var(--text-dark);
+            text-decoration: none; font-weight: bold;
+        }
+
+        .content { flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 100px; scrollbar-width: none; }
+        .content::-webkit-scrollbar { display: none; }
+
+        /* Status Header */
+        .status-card {
+            background: var(--haid-grad);
+            border-radius: 24px; padding: 20px; color: white;
+            text-align: center; margin-bottom: 25px;
+            box-shadow: 0 10px 20px rgba(255, 118, 117, 0.2);
+        }
+        .status-card span { font-size: 11px; font-weight: 700; text-transform: uppercase; opacity: 0.9; letter-spacing: 1px; }
+        .status-card h2 { margin: 5px 0 0; font-size: 24px; font-weight: 800; letter-spacing: 0.5px; }
+
+        /* Spiritual Quote */
+        .quote-card {
+            background: var(--white); border-radius: 20px; padding: 18px;
+            margin-bottom: 25px; border-left: 4px solid var(--danger);
+            box-shadow: var(--shadow);
+        }
+        .quote-card i { font-size: 12px; color: var(--text-muted); line-height: 1.6; display: block; font-style: italic; }
+        .quote-card b { font-size: 11px; color: var(--text-dark); display: block; text-align: right; margin-top: 8px; }
+
+        /* Gizi Container */
+        .gizi-card {
+            background: var(--white); border-radius: 24px; padding: 20px;
+            margin-bottom: 20px; box-shadow: var(--shadow);
+            border: 1px solid rgba(108, 92, 231, 0.1);
+        }
+        .gizi-label {
+            display: inline-block; background: #E8F8F5; color: var(--success);
+            padding: 4px 12px; border-radius: 10px; font-size: 10px; font-weight: 800; margin-bottom: 12px;
+        }
+        .gizi-title { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; display: block; }
+        .gizi-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px; }
+
+        .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .food-item {
+            background: #F8F9FA; padding: 12px; border-radius: 14px;
+            font-size: 11px; font-weight: 700; color: var(--text-dark);
+            display: flex; align-items: center; gap: 8px; border: 1px solid #EEE;
+        }
+
+        .tips-box {
+            margin-top: 15px; padding-top: 15px; border-top: 1px dashed #EEE;
+            font-size: 11px; color: var(--text-muted); line-height: 1.5;
+        }
+        .tips-box b { color: var(--success); }
+
+        /* Ibadah Card */
+        .guide-card {
+            background: #FFF5F7; border-radius: 20px; padding: 18px;
+            margin-bottom: 25px; border: 1px solid #FFEBEE;
+        }
+        .guide-title { font-size: 13px; font-weight: 800; color: #C2185B; margin-bottom: 10px; display: block; }
+        .guide-list { margin: 0; padding-left: 18px; font-size: 11px; color: #D81B60; line-height: 1.7; }
+
+        /* Button Doctor */
+        .btn-doctor {
+            width: 100%; padding: 16px; background: var(--secondary-grad);
+            color: white; border: none; border-radius: 18px;
+            font-size: 13px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-doctor:active { transform: scale(0.98); }
+
+        /* Bottom Nav - Fixed */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%; height: 85px;
+            background: var(--white); border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding-bottom: 15px; z-index: 20;
+        }
+        .nav-item { text-align: center; color: #B2BEC3; text-decoration: none; flex: 1; }
+        .nav-item.active { color: #6C5CE7; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; font-style: normal; }
+        .nav-item span { font-size: 9px; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <a href="visualisasikalender.html" class="back-btn">❮</a>
+        <strong style="font-size: 15px; color: var(--text-dark);">Detail Siklus</strong>
+    </div>
+
+    <div class="content">
+        <div class="status-card">
+            <span>Siklus Haid</span>
+            <h2>STATUS: HAID</h2>
+        </div>
+
+        <div class="quote-card">
+            <i>"Allah menginginkan kemudahan bagimu, dan tidak menginginkan kesukaran bagimu..."</i>
+            <b>QS. Al-Baqarah: 185</b>
+        </div>
+
+        <div class="gizi-card">
+            <span class="gizi-label">Nutrisi Pemulihan</span>
+            <span class="gizi-title">🥗 Optimalisasi Zat Besi (Fe)</span>
+            <p class="gizi-desc">
+                Saat haid, tubuh membutuhkan asupan besi lebih tinggi untuk memproduksi hemoglobin. Fokus pada kombinasi menu di bawah ini:
+            </p>
+            <div class="food-grid">
+                <div class="food-item">🥩 Daging Merah</div>
+                <div class="food-item">🍗 Hati Ayam</div>
+                <div class="food-item">🥬 Bayam/Kangkung</div>
+                <div class="food-item">🍊 Jeruk/Pepaya</div>
+            </div>
+            <div class="tips-box">
+                💡 <b>Tips Penyerapan:</b> Hindari minum kopi atau teh 1 jam sebelum/sesudah makan agar zat besi terserap maksimal!
+            </div>
+        </div>
+
+        <div class="guide-card">
+            <span class="guide-title">🚫 Panduan Ibadah</span>
+            <ul class="guide-list">
+                <li>Istirahatkan ruku' dan sujudmu sementara waktu.</li>
+                <li>Ganti dengan perbanyak <i>Istighfar</i>, <i>Shalawat</i>, dan dzikir lisan untuk menjaga ketenangan hati.</li>
+            </ul>
+        </div>
+
+        <button class="btn-doctor" onclick="alert('Menghubungkan ke layanan konsultasi medis...')">
+            🩺 Hubungi Dokter Klinik
+        </button>
+        <p style="text-align: center; font-size: 9px; color: var(--text-muted); margin-top: 10px; font-style: italic;">
+            Gunakan jika volume darah tidak normal atau nyeri berlebih.
+        </p>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-item"><i>🏠</i><span>Beranda</span></a>
+        <a href="visualisasikalender.html" class="nav-item active"><i>📅</i><span>Kalender</span></a>
+        <a href="skrininganemia.html" class="nav-item"><i>⚖️</i><span>Skrining</span></a>
+        <a href="fiqhistigadah.html" class="nav-item"><i>📖</i><span>Panduan</span></a>
+        <a href="profil.html" class="nav-item"><i>👤</i><span>Profil</span></a>
+    </nav>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Panduan Gizi Fe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C5CE7;
+            --secondary: #00B894;
+            --accent: #FDCB6E;
+            --danger: #FF7675;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --soft-bg: #F8F9FD;
+            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--soft-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            padding: 55px 25px 20px;
+            background: var(--white);
+            display: flex; align-items: center; gap: 15px;
+            border-bottom: 1px solid #F1F2F6;
+        }
+        .header h2 { font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0; letter-spacing: 0.5px; }
+        .back-icon { cursor: pointer; font-size: 18px; color: var(--text-dark); padding: 5px; }
+
+        .content { padding: 20px; flex: 1; overflow-y: auto; }
+
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin: 20px 0 12px;
+        }
+        .section-header h3 { font-size: 12px; font-weight: 800; color: var(--text-dark); margin: 0; text-transform: uppercase; letter-spacing: 0.8px; }
+        .tag { font-size: 9px; font-weight: 800; padding: 4px 8px; border-radius: 6px; }
+        .tag-heme { background: #FFEAA7; color: #D6A000; }
+        .tag-nonheme { background: #D1FAE5; color: #065F46; }
+
+        .food-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 10px; }
+        
+        .food-card {
+            background: var(--white); border-radius: 24px; padding: 18px 15px;
+            text-align: center; box-shadow: var(--shadow);
+            border: 1.5px solid transparent; transition: 0.3s;
+        }
+        .food-card:active { transform: scale(0.96); border-color: var(--primary); background: #F3F0FF; }
+        .food-icon { font-size: 32px; display: block; margin-bottom: 10px; }
+        .food-name { font-size: 12px; font-weight: 700; color: var(--text-dark); line-height: 1.2; }
+
+        /* Tips Box Modern */
+        .tips-container {
+            background: var(--white); border-radius: 28px; padding: 22px;
+            margin-top: 25px; border-left: 6px solid var(--accent);
+            box-shadow: var(--shadow);
+        }
+        .tips-title { 
+            display: flex; align-items: center; gap: 8px; 
+            font-size: 14px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px;
+        }
+        .tips-content { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+        .highlight { color: var(--secondary); font-weight: 800; }
+
+        .warning-box {
+            background: #FFF5F5; border-radius: 18px; padding: 15px;
+            margin-top: 15px; display: flex; gap: 12px; align-items: flex-start;
+        }
+        .warning-box span { font-size: 18px; }
+        .warning-box p { font-size: 11px; color: var(--danger); margin: 0; font-weight: 600; line-height: 1.5; }
+
+        .btn-back {
+            width: 100%; padding: 18px; border-radius: 22px;
+            background: var(--text-dark); color: white; border: none;
+            font-size: 14px; font-weight: 700; cursor: pointer;
+            margin: 25px 0 10px; transition: 0.3s;
+        }
+        .btn-back:active { transform: scale(0.98); opacity: 0.9; }
+
+        .disclaimer { font-size: 9px; color: #B2BEC3; text-align: center; margin-bottom: 20px; font-style: italic; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <div class="back-icon" onclick="window.location.href='dashboardhamil.html'">❮</div>
+        <h2>PANDUAN GIZI (Besi)</h2>
+    </div>
+
+    <div class="content">
+        <div class="section-header">
+            <h3>Zat Besi Hewani</h3>
+            <span class="tag tag-heme">PENYERAPAN TINGGI</span>
+        </div>
+        <div class="food-grid">
+            <div class="food-card">
+                <span class="food-icon">🥩</span>
+                <span class="food-name">Daging Merah<br>& Hati</span>
+            </div>
+            <div class="food-card">
+                <span class="food-icon">🍗</span>
+                <span class="food-name">Daging Ayam<br>(Bag. Paha)</span>
+            </div>
+            <div class="food-card">
+                <span class="food-icon">🐟</span>
+                <span class="food-name">Ikan Segar<br>(Laut & Tawar)</span>
+            </div>
+            <div class="food-card">
+                <span class="food-icon">🥚</span>
+                <span class="food-name">Telur Ayam<br>Kampung</span>
+            </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 25px;">
+            <h3>Zat Besi Nabati</h3>
+            <span class="tag tag-nonheme">+ VITAMIN C</span>
+        </div>
+        <div class="food-grid">
+            <div class="food-card">
+                <span class="food-icon">🥬</span>
+                <span class="food-name">Bayam &<br>Daun Kelor</span>
+            </div>
+            <div class="food-card">
+                <span class="food-icon">🫘</span>
+                <span class="food-name">Kacang-kacangan<br>& Sagu</span>
+            </div>
+            <div class="food-card">
+                <span class="food-icon">🪵</span>
+                <span class="food-name">Tempe &<br>Tahu Olahan</span>
+            </div>
+            <div class="food-card">
+                <span class="food-icon">🥦</span>
+                <span class="food-name">Brokoli &<br>Sayuran Hijau</span>
+            </div>
+        </div>
+
+        <div class="tips-container">
+            <div class="tips-title">💡 Tips Penyerapan</div>
+            <div class="tips-content">
+                Zat besi nabati akan terserap maksimal jika dikonsumsi bersama <span class="highlight">Vitamin C</span>. Coba minum jus jeruk atau jambu biji saat makan.
+            </div>
+            
+            <div class="warning-box">
+                <span>⚠️</span>
+                <p>Hindari minum teh, kopi, atau susu dalam 1 jam sebelum/sesudah makan agar zat besi tidak terhambat penyerapannya.</p>
+            </div>
+        </div>
+
+        <button class="btn-back" onclick="window.location.href='dashboardhamil.html'">KEMBALI KE BERANDA</button>
+
+        <p class="disclaimer">
+            Menu bergizi seimbang mendukung kesehatan Bumil di Palopo. Konsultasikan dengan tenaga kesehatan untuk diet khusus.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

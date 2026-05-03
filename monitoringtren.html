@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Tren & Riwayat Hb</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --success: #00B894;
+            --warning: #FDCB6E;
+            --danger: #FF7675;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --soft-bg: #F8F9FD;
+            --shadow: 0 10px 30px rgba(108, 92, 231, 0.08);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--soft-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            padding: 55px 25px 20px;
+            background: var(--white);
+            display: flex; align-items: center;
+            gap: 15px; border-bottom: 1px solid #F1F2F6;
+        }
+        .header h2 { font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0; letter-spacing: 0.5px; }
+        .back-btn { font-size: 20px; cursor: pointer; color: var(--text-dark); padding: 5px; }
+
+        .content { padding: 25px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+
+        /* Chart Section */
+        .chart-card {
+            background: var(--white); border-radius: 28px;
+            padding: 20px; box-shadow: var(--shadow);
+            margin-bottom: 25px; position: relative;
+        }
+        .chart-card h3 { font-size: 11px; font-weight: 800; color: var(--text-muted); margin: 0 0 25px; text-transform: uppercase; }
+
+        .chart-container {
+            width: 100%; height: 180px;
+            position: relative; border-bottom: 2px solid #F1F2F6;
+            margin-bottom: 10px;
+        }
+        
+        .normal-zone {
+            position: absolute; bottom: 55%; width: 100%; height: 45%;
+            background: rgba(0, 184, 148, 0.05); border-top: 1.5px dashed var(--success);
+            z-index: 1;
+        }
+        .zone-tag { position: absolute; right: 0; top: -18px; font-size: 9px; font-weight: 800; color: var(--success); }
+
+        .chart-svg { width: 100%; height: 100%; position: relative; z-index: 2; overflow: visible; }
+
+        /* History List */
+        .history-title { font-size: 11px; font-weight: 800; color: var(--text-muted); margin-bottom: 15px; display: block; letter-spacing: 0.5px; }
+        
+        .history-item {
+            background: var(--white); border-radius: 20px; padding: 16px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border-left: 4px solid transparent;
+        }
+
+        .date-col { display: flex; flex-direction: column; gap: 4px; }
+        .date-col .date { font-size: 13px; font-weight: 700; color: var(--text-dark); }
+        .date-col .status { font-size: 10px; font-weight: 800; text-transform: uppercase; }
+
+        .val-col { text-align: right; }
+        .val-col .value { font-size: 16px; font-weight: 800; color: var(--text-dark); display: block; }
+        .val-col .unit { font-size: 10px; color: var(--text-muted); font-weight: 600; }
+
+        /* Status Colors & Borders */
+        .item-normal { border-left-color: var(--success); }
+        .item-warning { border-left-color: var(--warning); }
+        .item-danger { border-left-color: var(--danger); }
+
+        .status-normal { color: var(--success); }
+        .status-warning { color: var(--warning); }
+        .status-danger { color: var(--danger); }
+
+        .btn-add {
+            width: 100%; padding: 18px; border-radius: 22px;
+            background: white; border: 2px dashed #D1D8E0;
+            color: var(--text-dark); font-size: 14px; font-weight: 700;
+            cursor: pointer; margin-top: 10px; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .btn-add:active { background: #F3F0FF; border-color: var(--accent); color: #6C5CE7; transform: translateY(2px); }
+
+        .disclaimer { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: auto; padding-top: 20px; font-style: italic; line-height: 1.5; }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <div class="back-btn" onclick="window.location.href='hasillabab.html'">❮</div>
+        <h2>TREN HEMOGLOBIN</h2>
+    </div>
+
+    <div class="content">
+        <div class="chart-card">
+            <h3>Visualisasi Tren (g/dL)</h3>
+            <div class="chart-container">
+                <div class="normal-zone">
+                    <span class="zone-tag">ZONA NORMAL (>12 g/dL)</span>
+                </div>
+                <svg class="chart-svg" viewBox="0 0 300 150">
+                    <path d="M 30 130 L 90 100 L 150 60 L 210 80 L 270 40" 
+                          fill="none" stroke="url(#lineGrad)" stroke-width="4" stroke-linecap="round" />
+                    
+                    <defs>
+                        <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#FF7675" />
+                            <stop offset="50%" stop-color="#FDCB6E" />
+                            <stop offset="100%" stop-color="#00B894" />
+                        </linearGradient>
+                    </defs>
+
+                    <circle cx="30" cy="130" r="5" fill="#FF7675" stroke="white" stroke-width="2" />
+                    <circle cx="90" cy="100" r="5" fill="#FDCB6E" stroke="white" stroke-width="2" />
+                    <circle cx="150" cy="60" r="5" fill="#00B894" stroke="white" stroke-width="2" />
+                    <circle cx="210" cy="80" r="5" fill="#00B894" stroke="white" stroke-width="2" />
+                    <circle cx="270" cy="40" r="6" fill="#6C5CE7" stroke="white" stroke-width="2" />
+                </svg>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 9px; color: var(--text-muted); font-weight: 700;">
+                <span>FEB</span><span>MAR</span><span>APR</span><span>MEI</span><span>SKRG</span>
+            </div>
+        </div>
+
+        <span class="history-title">RIWAYAT PEMERIKSAAN:</span>
+
+        <div class="history-item item-normal">
+            <div class="date-col">
+                <span class="date">03 Mei 2026</span>
+                <span class="status status-normal">Optimal</span>
+            </div>
+            <div class="val-col">
+                <span class="value">12.5</span>
+                <span class="unit">g/dL</span>
+            </div>
+        </div>
+
+        <div class="history-item item-warning">
+            <div class="date-col">
+                <span class="date">15 April 2026</span>
+                <span class="status status-warning">Normal Rendah</span>
+            </div>
+            <div class="val-col">
+                <span class="value">11.8</span>
+                <span class="unit">g/dL</span>
+            </div>
+        </div>
+
+        <div class="history-item item-danger">
+            <div class="date-col">
+                <span class="date">02 Februari 2026</span>
+                <span class="status status-danger">Anemia</span>
+            </div>
+            <div class="val-col">
+                <span class="value">10.8</span>
+                <span class="unit">g/dL</span>
+            </div>
+        </div>
+
+        <button class="btn-add" onclick="window.location.href='hasillabab.html'">
+            <span>➕</span> TAMBAH DATA LAB BARU
+        </button>
+
+        <p class="disclaimer">
+            Grafik ini mencerminkan fluktuasi kadar Hb Anda di Palopo. Pastikan asupan nutrisi tetap terjaga sesuai panduan gizi.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

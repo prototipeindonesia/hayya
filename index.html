@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA App - Professional Onboarding</title>
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #E67E93 0%, #F4A7B9 100%);
+            --btn-grad: linear-gradient(90deg, #E67E93 0%, #D85D78 100%);
+            --soft-pink: #FFF9FA;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow-subtle: 0 10px 25px rgba(230, 126, 147, 0.15);
+            --glass: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #DFE6E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Frame Smartphone */
+        .phone-frame {
+            width: 375px;
+            height: 780px;
+            background-color: var(--soft-pink);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Notch modern */
+        .phone-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #2D3436;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 100;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 50px 30px 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .active {
+            display: flex;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Splash Screen */
+        .splash-bg {
+            background: var(--primary-grad);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-main {
+            width: 140px;
+            height: 140px;
+            background: white;
+            border-radius: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            padding: 15px;
+        }
+
+        .logo-main img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Illustration Elements */
+        .feature-card {
+            width: 100%;
+            height: 300px;
+            background: white;
+            border-radius: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 85px;
+            margin-bottom: 35px;
+            box-shadow: var(--shadow-subtle);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Dekorasi Elemen Gradien Bulat */
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: var(--primary-grad);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        h1 { 
+            font-size: 28px; 
+            color: var(--text-dark); 
+            margin-bottom: 12px; 
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        p { 
+            font-size: 15px; 
+            line-height: 1.6; 
+            color: var(--text-muted); 
+            margin-bottom: 20px;
+        }
+
+        /* Modern Buttons */
+        .btn-container {
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .btn-main {
+            background: var(--btn-grad);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 10px 20px rgba(230, 126, 147, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-main:active { transform: scale(0.97); }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-rose);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Custom Dots */
+        .footer-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 25px;
+        }
+
+        .dots { display: flex; gap: 8px; }
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+        .dot.active-dot {
+            width: 28px;
+            border-radius: 10px;
+            background: var(--primary-rose);
+        }
+
+        /* Form Styling */
+        .form-group {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #F1F1F1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary-rose);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        input {
+            width: 100%;
+            border: none;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+            outline: none;
+            padding: 0;
+            background: transparent;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    
+    <div id="screen-splash" class="screen splash-bg active">
+        <div class="logo-main">
+            <img src="hayya.png" alt="HAYYA Logo">
+        </div>
+        <h1 style="color: white; margin-bottom: 8px; font-size: 34px;">HAYYA</h1>
+        <p style="color: rgba(255,255,255,0.9); font-weight: 500; font-size: 14px;">
+            "Guiding Women's Health,<br>Every Step Of the Journey"
+        </p>
+        <div class="btn-container">
+            <button class="btn-main btn-white" style="color: #E67E93;" onclick="showScreen('screen-1')">Mulai Sekarang</button>
+        </div>
+    </div>
+
+    <div id="screen-1" class="screen">
+        <div class="feature-card">🌙</div>
+        <h1>Pilar 1:<br>Fiqh Wanita</h1>
+        <p>Kalender pintar yang membedakan Haid, Suci, dan Istihadhah secara akurat sesuai tuntunan syariat.</p>
+        <div class="btn-container">
+            <div class="footer-nav">
+                <div class="dots"><div class="dot active-dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                <button class="btn-main" style="width: auto; padding: 15px 35px;" onclick="showScreen('screen-2')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-2" class="screen">
+        <div class="feature-card">🩺</div>
+        <h1>Pilar 2:<br>Cegah Anemia</h1>
+        <p>Pantau kesehatan darahmu dengan fitur Anemia Risk Score (ARS) dan pengingat Tablet Tambah Darah (TTD).</p>
+        <div class="btn-container">
+            <div class="footer-nav">
+                <div class="dots"><div class="dot"></div><div class="dot active-dot"></div><div class="dot"></div><div class="dot"></div></div>
+                <button class="btn-main" style="width: auto; padding: 15px 35px;" onclick="showScreen('screen-3')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-3" class="screen">
+        <div class="feature-card">✨</div>
+        <h1>Pilar 3:<br>Spiritual Health</h1>
+        <p>Edukasi gizi berbasis medis yang dipadukan dengan motivasi harian dari Al-Qur'an dan Hadits.</p>
+        <div class="btn-container">
+            <div class="footer-nav">
+                <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot active-dot"></div><div class="dot"></div></div>
+                <button class="btn-main" style="width: auto; padding: 15px 35px;" onclick="showScreen('screen-setup')">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen-setup" class="screen">
+        <h1 style="margin-top: 20px;">Personalisasi Data</h1>
+        <p>Masukkan data fisik Anda untuk mengaktifkan fitur pemantauan kesehatan otomatis.</p>
+        
+        <div class="form-group">
+            <label>BERAT BADAN (KG)</label>
+            <input type="number" placeholder="00">
+        </div>
+        <div class="form-group">
+            <label>TINGGI BADAN (CM)</label>
+            <input type="number" placeholder="000">
+        </div>
+
+        <div style="background: #F1F2F6; padding: 15px; border-radius: 15px; margin-top: 10px;">
+            <p style="font-size: 11px; margin-bottom: 0; color: #7F8C8D;">
+                🛡️ <b>Data Privacy:</b> Kami menjamin keamanan data pribadi Anda sesuai standar privasi kesehatan.
+            </p>
+        </div>
+
+        <div class="btn-container">
+            <button class="btn-main" onclick="window.location.href='setupprofil.html'">Selesai & Masuk</button>
+        </div>
+    </div>
+    
+
+</div>
+
+<script>
+    function showScreen(screenId) {
+        document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.remove('active');
+        });
+        const target = document.getElementById(screenId);
+        target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>

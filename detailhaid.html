@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Detail Status Haid</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --haid-grad: linear-gradient(135deg, #FF7675 0%, #FF8E8E 100%);
+            --secondary-grad: linear-gradient(135deg, #636E72 0%, #2D3436 100%);
+            --haid-soft: #FFF5F7;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            --success: #00B894;
+            --danger: #FF7675;
+            --warning: #FAD390;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: #F8F9FD;
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header */
+        .header {
+            padding: 50px 20px 15px;
+            background: var(--white);
+            display: flex; align-items: center; gap: 15px;
+            border-bottom: 1px solid #F1F2F6;
+            z-index: 10;
+        }
+
+        .back-btn {
+            width: 35px; height: 35px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            background: #f8f9fa; cursor: pointer; color: var(--text-dark);
+            text-decoration: none; font-weight: bold;
+        }
+
+        .content { flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 100px; scrollbar-width: none; }
+        .content::-webkit-scrollbar { display: none; }
+
+        /* Status Banner */
+        .status-card {
+            background: var(--haid-grad);
+            border-radius: 24px; padding: 20px; color: white;
+            text-align: center; margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(255, 118, 117, 0.2);
+        }
+        .status-day { font-size: 11px; font-weight: 700; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; }
+        .status-title { font-size: 22px; font-weight: 800; margin-top: 5px; display: block; }
+
+        /* Quote Card */
+        .quote-card {
+            background: var(--white); padding: 18px; border-radius: 20px;
+            margin-bottom: 20px; border-left: 4px solid var(--danger);
+            box-shadow: var(--shadow);
+        }
+        .quote-card i { font-size: 12px; color: var(--text-muted); line-height: 1.6; display: block; font-style: italic; }
+        .quote-card span { font-size: 11px; font-weight: 700; color: var(--text-dark); margin-top: 8px; display: block; }
+
+        /* Ibadah Guidelines */
+        .section-label { font-size: 14px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; display: block; }
+        
+        .guide-grid { display: grid; gap: 8px; margin-bottom: 20px; }
+        .guide-item {
+            background: var(--white); padding: 12px 15px; border-radius: 15px;
+            display: flex; align-items: center; gap: 10px; font-size: 11px;
+            font-weight: 600; box-shadow: var(--shadow);
+        }
+        .guide-item.dont { color: var(--danger); }
+        .guide-item.do { color: var(--success); }
+
+        /* Nutrition Card */
+        .nutrition-card {
+            background: #FFF9EE; border-radius: 20px; padding: 18px;
+            margin-bottom: 20px; border: 1px solid var(--warning);
+        }
+        .nutrition-title { color: #B45309; font-size: 13px; font-weight: 800; margin-bottom: 8px; display: block; }
+        .nutrition-list { font-size: 11px; color: #92400E; padding-left: 15px; line-height: 1.6; margin: 0; }
+        
+        /* New Gizi Button */
+        .btn-gizi {
+            background: #F39C12; color: white; border: none;
+            width: 100%; padding: 12px; border-radius: 12px;
+            font-size: 11px; font-weight: 800; cursor: pointer;
+            margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.3s;
+        }
+        .btn-gizi:active { transform: scale(0.98); background: #E67E22; }
+
+        /* Doctor Button */
+        .btn-doctor {
+            background: var(--secondary-grad); color: white; border: none;
+            width: 100%; padding: 16px; border-radius: 18px;
+            font-size: 13px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        /* Bottom Nav - Fixed */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%; height: 85px;
+            background: var(--white); border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding-bottom: 15px; z-index: 20;
+        }
+        .nav-link { text-align: center; color: #B2BEC3; text-decoration: none; flex: 1; }
+        .nav-link.active { color: #6C5CE7; }
+        .nav-link i { font-size: 22px; display: block; margin-bottom: 4px; font-style: normal; }
+        .nav-link span { font-size: 9px; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <a href="visualisasikalender.html" class="back-btn">❮</a>
+        <strong style="font-size: 15px; color: var(--text-dark);">Detail Kondisi</strong>
+    </div>
+
+    <div class="content">
+        <div class="status-card">
+            <span class="status-day">MEI 2026</span>
+            <span class="status-title">STATUS: HAID</span>
+            <div style="font-size: 12px; margin-top: 8px; opacity: 0.9; font-weight: 600;">Hari ke-3 dari Siklus Anda</div>
+        </div>
+
+        <div class="quote-card">
+            <i>"Mereka bertanya kepadamu tentang haidh. Katakanlah: 'Haidh itu adalah suatu kotoran'. Oleh sebab itu hendaklah kamu menjauhkan diri dari wanita di waktu haidh..."</i>
+            <span>QS. Al-Baqarah: 222</span>
+            <p style="font-size: 10px; color: var(--text-muted); margin-top: 8px; line-height: 1.4;">
+                <b>Hikmah:</b> Allah memberikan waktu istirahat fisik. Berhenti shalat saat haid adalah bentuk ketaatan yang juga bernilai pahala.
+            </p>
+        </div>
+
+        <span class="section-label">Panduan Ibadah (Fiqh Syafi'i)</span>
+        <div class="guide-grid">
+            <div class="guide-item dont">✕ Dilarang Shalat & Berpuasa</div>
+            <div class="guide-item dont">✕ Menyentuh / Membaca Al-Qur'an</div>
+            <div class="guide-item do">✔ Perbanyak Dzikir & Shalawat</div>
+            <div class="guide-item do">✔ Mendengarkan Murottal/Edukasi</div>
+        </div>
+
+        <div class="nutrition-card">
+            <span class="nutrition-title">🩸 Cegah Anemia Selama Haid</span>
+            <ul class="nutrition-list">
+                <li><b>Zat Besi:</b> Hati ayam atau bayam.</li>
+                <li><b>Vitamin C:</b> Jeruk untuk serap zat besi.</li>
+            </ul>
+            
+            <button class="btn-gizi" onclick="window.location.href='gizispesifikhaid.html'">
+                🥗 DETAIL GIZI & MENU HARIAN
+            </button>
+        </div>
+
+        <button class="btn-doctor" onclick="alert('Mengarahkan ke konsultasi Telemedis...')">
+            🩺 Hubungi Konsultasi Medis
+        </button>
+        <p style="text-align: center; font-size: 9px; color: var(--text-muted); margin-top: 10px; font-style: italic;">
+            Konsultasikan jika haid > 15 hari atau nyeri berlebih.
+        </p>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-link"><i>🏠</i><span>Beranda</span></a>
+        <a href="visualisasikalender.html" class="nav-link active"><i>📅</i><span>Kalender</span></a>
+        <a href="skrininganemia.html" class="nav-link"><i>⚖️</i><span>Skrining</span></a>
+        <a href="fiqhistigadah.html" class="nav-link"><i>📖</i><span>Panduan</span></a>
+        <a href="profil.html" class="nav-link"><i>👤</i><span>Profil</span></a>
+    </nav>
+</div>
+
+</body>
+</html>

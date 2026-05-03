@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Tracker TTD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --accent-grad: linear-gradient(135deg, #FF7675 0%, #FAB1A0 100%);
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --soft-bg: #F8F9FD;
+            --shadow: 0 15px 35px rgba(108, 92, 231, 0.12);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--soft-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            padding: 50px 20px 15px; /* Sedikit dikurangi agar hemat ruang */
+            background: var(--white);
+            display: flex; align-items: center; gap: 12px;
+            border-bottom: 1px solid #F1F2F6;
+            flex-shrink: 0;
+        }
+        .header h2 { font-size: 14px; font-weight: 800; color: var(--text-dark); margin: 0; letter-spacing: 0.5px; }
+        .back-icon { cursor: pointer; font-size: 18px; color: var(--text-dark); padding: 5px; }
+
+        .content { 
+            padding: 15px 20px; 
+            flex: 1; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column;
+            scrollbar-width: none; /* Sembunyikan scrollbar di Firefox */
+        }
+        .content::-webkit-scrollbar { display: none; } /* Sembunyikan scrollbar di Chrome/Safari */
+
+        /* Streak Visual Card */
+        .streak-card {
+            background: var(--white); border-radius: 25px; padding: 15px;
+            text-align: center; box-shadow: var(--shadow); margin-bottom: 15px;
+            position: relative; overflow: hidden; flex-shrink: 0;
+        }
+        .streak-card::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 5px; height: 100%;
+            background: var(--accent-grad);
+        }
+        .streak-label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; }
+        .streak-val { font-size: 36px; font-weight: 800; color: var(--text-dark); display: block; line-height: 1.2; }
+        .streak-unit { font-size: 11px; font-weight: 700; color: #FF7675; }
+
+        /* Check-in Interactive Section */
+        .checkin-container {
+            background: var(--white); border-radius: 25px; padding: 20px 15px;
+            text-align: center; box-shadow: var(--shadow); border: 1px solid #EEF2FF;
+            margin-bottom: 15px; flex-shrink: 0;
+        }
+        .pill-wrapper {
+            width: 60px; height: 60px; background: #FFF5F5; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; margin: 0 auto 12px; animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        
+        .checkin-container p { font-size: 12px; font-weight: 600; color: var(--text-dark); line-height: 1.4; margin-bottom: 15px; }
+
+        .btn-checkin {
+            width: 100%; padding: 15px; border-radius: 15px; border: none;
+            background: var(--text-dark); color: white; font-size: 13px; font-weight: 700;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        .btn-checkin:active { transform: scale(0.96); }
+
+        /* Weekly Progress Grid */
+        .history-section { margin-top: 5px; flex-shrink: 0; }
+        .history-section h4 { font-size: 11px; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; text-transform: uppercase; }
+        
+        .history-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .day-box {
+            aspect-ratio: 1; border-radius: 10px; background: #E0E0E0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 800; color: white;
+        }
+        .day-box.done { background: var(--primary-grad); }
+        .day-box.active { border: 2px solid #6C5CE7; background: white; color: #6C5CE7; }
+
+        .info-note { font-size: 10px; color: var(--text-muted); margin-top: 10px; line-height: 1.4; }
+
+        .disclaimer { 
+            font-size: 9px; color: var(--text-muted); text-align: center; 
+            margin-top: 20px; padding-bottom: 20px; font-style: italic; 
+            line-height: 1.4; flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <div class="back-icon" onclick="window.location.href='dashboardhamil.html'">❮</div>
+        <h2>LOG SUPLEMEN (TTD)</h2>
+    </div>
+
+    <div class="content">
+        <div class="streak-card">
+            <span class="streak-label">Kepatuhan Minum</span>
+            <span class="streak-val" id="streakCount">21</span>
+            <span class="streak-unit">HARI BERTURUT-TURUT 🔥</span>
+        </div>
+
+        <div class="checkin-container">
+            <div class="pill-wrapper" id="pillEmoji">💊</div>
+            <p id="checkinText">Kesehatan janin dimulai dari Ibu.<br>Sudah minum Tablet Tambah Darah hari ini?</p>
+            <button class="btn-checkin" id="checkinBtn" onclick="markDone()">KONFIRMASI MINUM TTD</button>
+        </div>
+
+        <div class="history-section">
+            <h4>Progress Minggu Ini</h4>
+            <div class="history-grid">
+                <div class="day-box done">S</div>
+                <div class="day-box done">S</div>
+                <div class="day-box done">R</div>
+                <div class="day-box active" id="todayBox">K</div>
+                <div class="day-box">J</div>
+                <div class="day-box">S</div>
+                <div class="day-box">M</div>
+            </div>
+            <p class="info-note">
+                *Ibu hamil disarankan minum minimal 90 tablet selama masa kehamilan untuk mencegah anemia.
+            </p>
+        </div>
+
+        <p class="disclaimer">
+            Data kepatuhan Anda akan diintegrasikan dengan laporan inovasi kesehatan digital Kota Palopo.
+        </p>
+    </div>
+</div>
+
+<script>
+    function markDone() {
+        const today = document.getElementById('todayBox');
+        const count = document.getElementById('streakCount');
+        const btn = document.getElementById('checkinBtn');
+        const text = document.getElementById('checkinText');
+        const emoji = document.getElementById('pillEmoji');
+
+        if (!today.classList.contains('done')) {
+            today.classList.remove('active');
+            today.classList.add('done');
+            
+            count.innerText = "22";
+            text.innerHTML = "Luar biasa, Bu!<br>Satu langkah lebih dekat menuju persalinan sehat.";
+            emoji.innerHTML = "💖";
+            emoji.style.animation = "none";
+            
+            btn.innerText = "TERCATAT HARI INI ✓";
+            btn.style.background = "#00B894";
+            btn.disabled = true;
+            
+            alert('Data berhasil disimpan ke sistem HAYYA.');
+        }
+    }
+</script>
+
+</body>
+</html>

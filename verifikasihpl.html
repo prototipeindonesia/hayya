@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Verifikasi HPL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pregnancy-grad: linear-gradient(135deg, #FF7675 0%, #FAB1A0 100%);
+            --soft-pink: #FFF5F5;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --soft-bg: #F8F9FD;
+            --shadow: 0 15px 35px rgba(255, 118, 117, 0.15);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--soft-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            padding: 55px 25px 20px;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border-bottom: 1px solid #F1F2F6;
+        }
+        .back-btn {
+            position: absolute; left: 20px; bottom: 18px;
+            font-size: 20px; cursor: pointer; color: var(--text-dark);
+        }
+        .header h2 { font-size: 14px; font-weight: 800; color: var(--text-dark); margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+
+        .content { padding: 30px 25px; flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+
+        .step-indicator {
+            font-size: 11px; font-weight: 800; color: #FF7675;
+            text-align: center; margin-bottom: 25px; letter-spacing: 1px;
+        }
+
+        /* HPL Result Card */
+        .hpl-card {
+            background: var(--white); border-radius: 35px;
+            padding: 40px 20px; text-align: center;
+            box-shadow: var(--shadow); margin-bottom: 30px;
+            position: relative; border: 1px solid rgba(255, 118, 117, 0.1);
+        }
+        .hpl-card::before {
+            content: "✨"; position: absolute; top: -15px; left: calc(50% - 15px);
+            font-size: 24px; background: var(--soft-bg); padding: 0 10px;
+        }
+        .hpl-label { font-size: 13px; color: var(--text-muted); font-weight: 600; margin-bottom: 10px; display: block; }
+        .hpl-date { font-size: 26px; font-weight: 800; color: var(--text-dark); margin: 10px 0; display: block; }
+        .gestational-age {
+            background: var(--soft-pink); color: #FF7675;
+            padding: 8px 15px; border-radius: 12px; font-size: 13px;
+            font-weight: 700; display: inline-block; margin-top: 5px;
+        }
+
+        /* Source Data Panel */
+        .data-panel {
+            background: #ffffff; border-radius: 24px; padding: 20px;
+            margin-bottom: 25px; border: 1px solid #F1F2F6;
+        }
+        .data-panel h4 { font-size: 11px; font-weight: 800; color: var(--text-muted); margin: 0 0 15px; text-transform: uppercase; }
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; }
+        .data-row span { color: var(--text-muted); font-weight: 500; }
+        .data-row strong { color: var(--text-dark); font-weight: 700; }
+
+        .confirmation-text {
+            font-size: 13px; color: var(--text-muted);
+            text-align: center; line-height: 1.6; margin-bottom: 30px;
+        }
+
+        /* Buttons */
+        .btn-group { display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
+        .btn {
+            width: 100%; padding: 20px; border-radius: 22px;
+            font-size: 15px; font-weight: 700; cursor: pointer;
+            transition: 0.3s; border: none; text-align: center;
+        }
+        .btn-confirm { background: var(--pregnancy-grad); color: white; box-shadow: 0 10px 20px rgba(255, 118, 117, 0.2); }
+        .btn-edit { background: var(--white); color: var(--text-dark); border: 2px solid #F1F2F6; }
+        .btn:active { transform: scale(0.98); }
+
+        .disclaimer {
+            font-size: 10px; text-align: center; margin-top: 20px;
+            color: #B2BEC3; font-style: italic; line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <div class="back-btn" onclick="window.location.href='dashboardhamil.html'">❮</div>
+        <h2>KONFIRMASI HPL</h2>
+    </div>
+
+    <div class="content">
+        <div class="step-indicator">KALIBRASI DATA KEHAMILAN</div>
+        
+        <div class="hpl-card">
+            <span class="hpl-label">Estimasi Hari Perkiraan Lahir:</span>
+            <span class="hpl-date">10 JANUARI 2027</span>
+            <div class="gestational-age">Usia: 4 Minggu 2 Hari</div>
+        </div>
+
+        <div class="data-panel">
+            <h4>Analisis Sistem HAYYA:</h4>
+            <div class="data-row">
+                <span>HPHT Terakhir</span>
+                <strong>05 April 2026</strong>
+            </div>
+            <div class="data-row">
+                <span>Metode Hitung</span>
+                <strong>Rumus Naegele</strong>
+            </div>
+            <div class="data-row">
+                <span>Trimester</span>
+                <strong>Pertama (T1)</strong>
+            </div>
+        </div>
+
+        <p class="confirmation-text">
+            Sistem telah menghitung HPL Anda secara otomatis. Jika Anda memiliki tanggal berbeda dari <b>Hasil USG Dokter</b>, silakan lakukan penyesuaian manual.
+        </p>
+
+        <div class="btn-group">
+            <button class="btn btn-confirm" onclick="confirmHPL()">
+                YA, SUDAH SESUAI
+            </button>
+            <button class="btn btn-edit" onclick="editDate()">
+                UBAH TANGGAL MANUAL
+            </button>
+        </div>
+
+        <p class="disclaimer">
+            Data ini akan digunakan untuk menentukan jadwal minum TTD dan kunjungan ANC Anda di Palopo.
+        </p>
+    </div>
+</div>
+
+<script>
+    function confirmHPL() {
+        alert('Data HPL berhasil dikonfirmasi! Dashboard Anda kini telah diperbarui.');
+        window.location.href = 'dashboardhamil.html';
+    }
+
+    function editDate() {
+        // Simulasi fungsi edit
+        let newDate = prompt("Masukkan tanggal HPL baru (contoh: 12 Januari 2027):");
+        if(newDate) {
+            alert('Tanggal HPL diubah menjadi: ' + newDate);
+            window.location.href = 'dashboardhamil.html';
+        }
+    }
+</script>
+
+</body>
+</html>

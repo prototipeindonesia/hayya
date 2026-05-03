@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Onboarding & Profile Setup</title>
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #E67E93 0%, #F4A7B9 100%);
+            --btn-grad: linear-gradient(90deg, #E67E93 0%, #D85D78 100%);
+            --soft-pink: #FFF9FA;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 30px rgba(230, 126, 147, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: #DFE6E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Frame Smartphone Modern */
+        .phone-frame {
+            width: 375px;
+            height: 780px;
+            background-color: var(--soft-pink);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Notch */
+        .phone-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #2D3436;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            z-index: 100;
+        }
+
+        /* Slide Container */
+        .slide {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            padding: 60px 30px 40px;
+            text-align: center;
+        }
+
+        .slide.active {
+            display: flex;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Logo & Illustration */
+        .header-logo {
+            width: 80px;
+            margin: 0 auto 20px;
+        }
+
+        .visual-card {
+            width: 100%;
+            height: 260px;
+            background: var(--white);
+            border-radius: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 80px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .visual-card::before {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: var(--primary-grad);
+            border-radius: 50%;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        h2 { 
+            font-size: 24px; 
+            color: var(--text-dark); 
+            font-weight: 800; 
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        p { 
+            font-size: 15px; 
+            color: var(--text-muted); 
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Profile Form Styling */
+        .form-container {
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .input-group {
+            background: var(--white);
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #F1F1F1;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 800;
+            color: #E67E93;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            background: transparent;
+        }
+
+        .imt-info {
+            background: #F1F2F6;
+            padding: 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        /* Controls */
+        .controls {
+            margin-top: auto;
+        }
+
+        .btn-next {
+            width: 100%;
+            padding: 20px;
+            background: var(--btn-grad);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(230, 126, 147, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-next:active { transform: scale(0.97); }
+
+        .progress-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 50%;
+            transition: 0.4s;
+        }
+
+        .dot.active {
+            width: 25px;
+            background: #E67E93;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="slide active" id="slide1">
+        <img src="hayya.png" alt="HAYYA" class="header-logo">
+        <div class="visual-card">🌙</div>
+        <h2>Pilar 1:<br>Fiqh Wanita</h2>
+        <p>Akurasi pemantauan masa Haid, Suci, dan Istihadhah sesuai kaidah Fiqh untuk ketenangan ibadahmu.</p>
+        <div class="controls">
+            <button class="btn-next" onclick="showSlide(2)">Lanjut</button>
+            <div class="progress-container">
+                <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide" id="slide2">
+        <img src="hayya.png" alt="HAYYA" class="header-logo">
+        <div class="visual-card">🩸</div>
+        <h2>Pilar 2:<br>Cegah Anemia</h2>
+        <p>Deteksi dini risiko Anemia melalui skor ARS dan pengingat rutin konsumsi Tablet Tambah Darah (TTD).</p>
+        <div class="controls">
+            <button class="btn-next" onclick="showSlide(3)">Lanjut</button>
+            <div class="progress-container">
+                <div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide" id="slide3">
+        <img src="hayya.png" alt="HAYYA" class="header-logo">
+        <div class="visual-card">📖</div>
+        <h2>Pilar 3:<br>Edukasi Islami</h2>
+        <p>Panduan gizi harian dan motivasi dari Al-Qur'an serta Hadits agar tetap bugar dalam beribadah.</p>
+        <div class="controls">
+            <button class="btn-next" onclick="showSlide(4)">Lengkapi Profil</button>
+            <div class="progress-container">
+                <div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide" id="slide4">
+        <h2 style="margin-top: 20px;">Setup Profil Kesehatan</h2>
+        <p>Lengkapi data berikut untuk menghitung Indeks Massa Tubuh (IMT) Anda secara otomatis.</p>
+        
+        <div class="form-container">
+            <div class="input-group">
+                <label>Berat Badan (kg)</label>
+                <input type="number" id="weight" placeholder="00">
+            </div>
+            <div class="input-group">
+                <label>Tinggi Badan (cm)</label>
+                <input type="number" id="height" placeholder="000">
+            </div>
+        </div>
+
+        <div class="imt-info">
+            🛡️ <b>Mengapa ini penting?</b><br>
+            IMT membantu kami menganalisis status gizi Anda, yang merupakan faktor kunci dalam risiko kejadian anemia.
+        </div>
+
+        <div class="controls">
+            <button class="btn-next" onclick="finishOnboarding()">Aktifkan Dashboard</button>
+            <div class="progress-container">
+                <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showSlide(slideNumber) {
+        document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+        document.getElementById('slide' + slideNumber).classList.add('active');
+    }
+
+    function finishOnboarding() {
+        const w = document.getElementById('weight').value;
+        const h = document.getElementById('height').value;
+        
+        if(w && h) {
+            alert('Data Kesehatan Tersimpan! Menuju Dashboard Utama HAYYA...');
+        } else {
+            alert('Silakan isi Berat dan Tinggi Badan Anda untuk melanjutkan.');
+        }
+    }
+</script>
+
+</body>
+</html>

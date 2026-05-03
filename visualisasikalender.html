@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Kalender Siklus & Fiqh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --color-haid: #FF7675;
+            --bg-haid: #FFF0F0;
+            --color-suci: #00B894;
+            --bg-suci: #E8F8F5;
+            --color-flek: #FAD390;
+            --bg-flek: #FFF9EE;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: #F8F9FD;
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header Navigation */
+        .header-cal {
+            padding: 50px 25px 15px;
+            background: var(--white);
+            border-bottom: 1px solid #F1F2F6;
+            flex-shrink: 0;
+            z-index: 20;
+        }
+
+        .month-nav {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .month-nav h2 { font-size: 16px; font-weight: 800; color: var(--text-dark); margin: 0; }
+        .nav-btn {
+            width: 32px; height: 32px; border-radius: 10px;
+            background: #F1F2F6; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: none; font-weight: bold;
+        }
+
+        /* Scrollable Content Area */
+        .calendar-section { 
+            padding: 15px 20px 180px; /* Padding bottom extra agar tidak tertutup FAB/Nav */
+            flex: 1; 
+            overflow-y: auto; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            scrollbar-width: none;
+        }
+        .calendar-section::-webkit-scrollbar { display: none; }
+        
+        .calendar-card {
+            background: var(--white); border-radius: 24px;
+            padding: 15px; box-shadow: var(--shadow);
+            flex-shrink: 0;
+        }
+
+        .grid-header {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            margin-bottom: 10px;
+        }
+        .day-name {
+            text-align: center; font-size: 10px; font-weight: 800;
+            color: #B2BEC3; text-transform: uppercase;
+        }
+
+        .calendar-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px;
+        }
+
+        .cell {
+            aspect-ratio: 1; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 600; color: var(--text-dark);
+            cursor: pointer; position: relative; transition: 0.2s;
+        }
+
+        /* Status Styles */
+        .status-haid { background-color: var(--bg-haid); color: var(--color-haid); font-weight: 800; }
+        .status-haid::after { content: ''; width: 3px; height: 3px; background: var(--color-haid); border-radius: 50%; position: absolute; bottom: 4px; }
+        .status-suci { background-color: var(--bg-suci); color: var(--color-suci); }
+        .status-flek { background-color: var(--bg-flek); color: var(--color-flek); }
+        .today { background: var(--text-dark) !important; color: white !important; z-index: 2; }
+
+        /* Legend & Info */
+        .info-card {
+            background: var(--white); border-radius: 24px; padding: 18px;
+            box-shadow: var(--shadow);
+            flex-shrink: 0;
+        }
+        .legend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; color: var(--text-muted); }
+        .dot { width: 8px; height: 8px; border-radius: 2px; }
+
+        .daily-status-box {
+            background: #F8F9FD; border-radius: 15px; padding: 12px;
+            border-left: 4px solid #6C5CE7;
+            margin-bottom: 15px;
+        }
+        .daily-status-box b { display: block; font-size: 12px; color: var(--text-dark); margin-bottom: 4px; }
+        .daily-status-box p { font-size: 11px; color: var(--text-muted); margin: 0; line-height: 1.4; }
+
+        /* Action Buttons */
+        .analysis-actions { display: flex; flex-direction: column; gap: 8px; }
+        .grid-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        
+        .btn-analysis {
+            padding: 12px; border-radius: 12px; border: none;
+            font-size: 11px; font-weight: 700; cursor: pointer;
+            transition: 0.3s; color: white; display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+        .btn-fiqh { background: #6C5CE7; }
+        .btn-medis { background: #0984E3; }
+        .btn-detail { background: #2D3436; width: 100%; }
+        .btn-analysis:active { transform: scale(0.97); }
+
+        /* Pop Up Ambigu */
+        .popup-ambigu {
+            position: absolute; top: 100px; left: 50%; transform: translateX(-50%);
+            width: 85%; background: #FFF9EE; border: 1.5px solid #FAD390;
+            padding: 15px; border-radius: 20px; z-index: 1000;
+            box-shadow: 0 15px 30px rgba(250, 211, 144, 0.3);
+            display: none; animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+        /* Floating Action Button - FIXED */
+        .btn-add {
+            position: absolute; bottom: 100px; right: 25px;
+            width: 55px; height: 55px; border-radius: 18px;
+            background: var(--primary-grad); border: none;
+            color: white; font-size: 28px; cursor: pointer;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+            z-index: 30; display: flex; align-items: center; justify-content: center;
+        }
+
+        /* Bottom Nav - FIXED */
+        .bottom-nav {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 85px;
+            background: var(--white); border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding-bottom: 20px; z-index: 40;
+        }
+        .nav-link { text-align: center; color: #B2BEC3; text-decoration: none; flex: 1; }
+        .nav-link.active { color: #6C5CE7; }
+        .nav-link i { font-size: 24px; display: block; margin-bottom: 4px; font-style: normal; }
+        .nav-link span { font-size: 10px; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div id="popupAmbigu" class="popup-ambigu">
+        <b>⚠️ Kondisi Ambigu Terdeteksi</b>
+        <p>Siklus Anda melewati 15 hari. Segera cek status Fiqh Istihadhah & konsultasi medis.</p>
+    </div>
+
+    <div class="header-cal">
+        <div class="month-nav">
+            <button class="nav-btn">❮</button>
+            <h2>MEI 2026</h2>
+            <button class="nav-btn">❯</button>
+        </div>
+    </div>
+
+    <div class="calendar-section">
+        <div class="calendar-card">
+            <div class="grid-header">
+                <div class="day-name">Mg</div><div class="day-name">Sn</div><div class="day-name">Sl</div>
+                <div class="day-name">Rb</div><div class="day-name">Km</div><div class="day-name">Jm</div><div class="day-name">Sb</div>
+            </div>
+            
+            <div class="calendar-grid">
+                <div class="cell" style="color:#eee">26</div><div class="cell" style="color:#eee">27</div><div class="cell" style="color:#eee">28</div><div class="cell" style="color:#eee">29</div><div class="cell" style="color:#eee">30</div>
+                
+                <div class="cell status-suci" onclick="updateInfo('1 Mei', 'Suci', 'Wajib shalat & puasa.')">1</div>
+                <div class="cell status-suci" onclick="updateInfo('2 Mei', 'Suci', 'Wajib shalat & puasa.')">2</div>
+                <div class="cell status-haid" onclick="updateInfo('3 Mei', 'Haid', 'Status: Tidak Shalat.')">3</div>
+                <div class="cell status-haid" onclick="updateInfo('4 Mei', 'Haid', 'Status: Tidak Shalat.')">4</div>
+                <div class="cell status-haid" onclick="updateInfo('5 Mei', 'Haid', 'Status: Tidak Shalat.')">5</div>
+                <div class="cell status-haid" onclick="updateInfo('6 Mei', 'Haid', 'Status: Tidak Shalat.')">6</div>
+                <div class="cell status-haid" onclick="updateInfo('7 Mei', 'Haid', 'Status: Tidak Shalat.')">7</div>
+                <div class="cell status-haid" onclick="updateInfo('8 Mei', 'Haid', 'Status: Tidak Shalat.')">8</div>
+                <div class="cell status-flek" onclick="updateInfo('9 Mei', 'Flek', 'Status: Meragukan/Peralihan.')">9</div>
+                <div class="cell status-suci" onclick="updateInfo('10 Mei', 'Suci', 'Wajib Mandi Wajib.')">10</div>
+                <div class="cell status-suci">11</div><div class="cell status-suci">12</div>
+                <div class="cell today" onclick="updateInfo('13 Mei', 'Hari Ini', 'Kondisi tubuh: Normal.')">13</div>
+                
+                <script>
+                    for(let i=14; i<=31; i++) {
+                        document.write(`<div class="cell" onclick="updateInfo('${i} Mei', 'Terjadwal', 'Input data harian Anda.')">${i}</div>`);
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <div class="legend-grid">
+                <div class="legend-item"><div class="dot" style="background: var(--color-haid)"></div> Haid</div>
+                <div class="legend-item"><div class="dot" style="background: var(--color-suci)"></div> Suci</div>
+                <div class="legend-item"><div class="dot" style="background: var(--color-flek)"></div> Flek</div>
+                <div class="legend-item"><div class="dot" style="background: var(--text-dark)"></div> Hari Ini</div>
+            </div>
+            
+            <div class="daily-status-box" id="status-box">
+                <b id="status-date">Pilih Tanggal</b>
+                <p id="status-desc">Klik tanggal untuk melihat ringkasan.</p>
+            </div>
+
+            <div class="analysis-actions">
+                <div class="grid-actions">
+                    <button class="btn-analysis btn-fiqh" onclick="window.location.href='cekstatusfiqh.html'">
+                        📖 CEK FIQH
+                    </button>
+                    <button class="btn-analysis btn-medis" onclick="window.location.href='cekstatusmedis.html'">
+                        🩺 CEK MEDIS
+                    </button>
+                </div>
+                <button class="btn-analysis btn-detail" onclick="window.location.href='detailhaid.html'">
+                    📄 DETAIL SIKLUS HAID
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-add" onclick="window.location.href='inputharian.html'">+</button>
+        
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-link"><i>🏠</i><span>Beranda</span></a>
+        <a href="visualisasikalender.html" class="nav-link active"><i>📅</i><span>Kalender</span></a>
+        <a href="skrininganemia.html" class="nav-link"><i>⚖️</i><span>Skrining</span></a>
+        <a href="fiqhistigadah.html" class="nav-link"><i>📖</i><span>Panduan</span></a>
+        <a href="profil.html" class="nav-link"><i>👤</i><span>Profil</span></a>
+    </nav>
+</div>
+
+<script>
+    function updateInfo(date, status, desc) {
+        document.getElementById('status-date').innerText = date + " - " + status;
+        document.getElementById('status-desc').innerText = desc;
+    }
+
+    window.onload = function() {
+        const popup = document.getElementById('popupAmbigu');
+        popup.style.display = 'block';
+        setTimeout(() => {
+            popup.style.opacity = '0';
+            setTimeout(() => { popup.style.display = 'none'; }, 500);
+        }, 3500);
+    }
+</script>
+
+</body>
+</html>

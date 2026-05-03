@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Ambiguity Handling</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --warning-amber: #FFBF00;
+            --warning-bg: #FFFBEB;
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: #F8F9FD;
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Background Mockup (Blurred) */
+        .content-bg {
+            padding: 60px 25px;
+            filter: blur(4px);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* Modal Overlay */
+        .ambiguity-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(45, 52, 70, 0.6);
+            backdrop-filter: blur(3px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; padding: 25px;
+        }
+
+        .alert-card {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .warning-icon {
+            width: 70px; height: 70px;
+            background: var(--warning-bg);
+            color: var(--warning-amber);
+            font-size: 32px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 25px;
+            margin: 0 auto 20px;
+        }
+
+        h2 { font-size: 20px; font-weight: 800; color: var(--text-dark); margin: 0 0 12px; }
+        
+        .message {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .logic-highlight {
+            background: #F1F2F6;
+            padding: 15px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-dark);
+            border-left: 4px solid var(--warning-amber);
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        /* Buttons */
+        .btn-consult {
+            width: 100%; padding: 18px;
+            background: var(--text-dark);
+            color: white; border: none;
+            border-radius: 18px;
+            font-size: 14px; font-weight: 700;
+            cursor: pointer; transition: 0.3s;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        .btn-ignore {
+            width: 100%; padding: 15px;
+            background: transparent;
+            color: var(--text-muted);
+            border: none;
+            font-size: 13px; font-weight: 600;
+            cursor: pointer; margin-top: 10px;
+            text-decoration: underline;
+        }
+
+        .footer-note {
+            font-size: 10px;
+            color: #B2BEC3;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="content-bg">
+        <div style="height: 40px; background: #eee; border-radius: 10px; margin-bottom: 20px;"></div>
+        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;">
+            <script>for(let i=0; i<28; i++) document.write('<div style="aspect-ratio:1; background:#eee; border-radius:8px;"></div>');</script>
+        </div>
+    </div>
+
+    <div class="ambiguity-overlay">
+        <div class="alert-card">
+            <div class="warning-icon">⚠️</div>
+            <h2>Kondisi Ambigu</h2>
+            
+            <div class="message">
+                Berdasarkan input Anda, darah terdeteksi keluar sebelum masa suci minimal (15 hari) tercapai. 
+            </div>
+
+            <div class="logic-highlight">
+                📍 <b>Kaidah Fiqh:</b> Dalam Mazhab Syafi'i, darah yang keluar sebelum lewat 15 hari masa suci mungkin termasuk darah penyakit (Istihadhah).
+            </div>
+
+            <button class="btn-consult" onclick="alert('Menyambungkan ke Ustadzah...')">
+                💬 Tanya Ahli Fiqh
+            </button>
+            
+            <button class="btn-ignore" onclick="window.location.reload()">
+                Tinjau Ulang Input Saya
+            </button>
+
+            <p class="footer-note">
+                HAYYA menggunakan algoritma Fiqh & Medis untuk memberikan peringatan dini ini.
+            </p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

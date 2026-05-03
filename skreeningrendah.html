@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Hasil Risiko Rendah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%);
+            --secondary-grad: linear-gradient(135deg, #636E72 0%, #2D3436 100%);
+            --safe-bg: #F2FAF5;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 30px rgba(39, 174, 96, 0.15);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--safe-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .content {
+            flex: 1; padding: 60px 25px 30px;
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+            overflow-y: auto;
+        }
+
+        /* Result Visual */
+        .result-title {
+            font-size: 14px; font-weight: 800; color: var(--text-muted);
+            letter-spacing: 1px; margin-bottom: 30px;
+        }
+
+        .score-container {
+            width: 160px; height: 160px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            box-shadow: var(--shadow);
+            border: 8px solid #E8F5EE;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .score-val { 
+            font-size: 48px; font-weight: 800; 
+            color: #27AE60; line-height: 1;
+        }
+        .score-label { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-top: 5px; }
+
+        .risk-badge {
+            background: var(--primary-grad);
+            color: white; padding: 10px 24px;
+            border-radius: 20px; font-weight: 800;
+            font-size: 14px; box-shadow: 0 8px 20px rgba(39, 174, 96, 0.2);
+            margin-bottom: 30px;
+        }
+
+        /* Message */
+        .message-card {
+            background: var(--white);
+            padding: 20px; border-radius: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 25px; border: 1px solid #EBF5EF;
+        }
+        .message-card p {
+            font-size: 14px; color: var(--text-muted);
+            line-height: 1.6; margin: 0;
+        }
+
+        /* Checklist Section */
+        .action-container {
+            width: 100%; text-align: left; margin-bottom: 30px;
+        }
+        .action-label {
+            font-size: 12px; font-weight: 800; color: var(--text-dark);
+            margin-bottom: 15px; display: block;
+        }
+
+        .list-item {
+            display: flex; gap: 15px; margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 12px 15px; border-radius: 16px;
+            align-items: center;
+        }
+        .check-icon {
+            width: 24px; height: 24px; background: #D4EFDF;
+            color: #27AE60; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 900; flex-shrink: 0;
+        }
+        .list-text { font-size: 12px; color: var(--text-dark); font-weight: 600; line-height: 1.4; }
+
+        /* Buttons */
+        .btn-group { width: 100%; display: flex; flex-direction: column; gap: 12px; margin-top: auto; }
+        .btn {
+            width: 100%; padding: 18px; border-radius: 20px;
+            font-size: 14px; font-weight: 700; cursor: pointer; border: none;
+            transition: 0.3s;
+        }
+        .btn-black { background: var(--secondary-grad); color: white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .btn-outline { background: transparent; color: var(--text-dark); border: 1.5px solid #E0E0E0; }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            width: 100%; height: 85px;
+            background: var(--white); border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding-bottom: 15px;
+        }
+        .nav-item { text-align: center; color: #B2BEC3; font-size: 10px; font-weight: 700; cursor: pointer; }
+        .nav-item.active { color: #27AE60; }
+        .nav-item i { font-size: 22px; display: block; margin-bottom: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="content">
+        <span class="result-title">HASIL SKRINING ARS</span>
+
+        <div class="score-container">
+            <span class="score-val">15</span>
+            <span class="score-label">SKOR TOTAL</span>
+        </div>
+        
+        <div class="risk-badge">RISIKO RENDAH</div>
+
+        <div class="message-card">
+            <p>Alhamdulillah! Kondisi kesehatanmu saat ini terpantau <b>Aman</b>. Kamu memiliki risiko rendah terkena anemia. Pertahankan pola hidup sehatmu!</p>
+        </div>
+
+        <div class="action-container">
+            <span class="action-label">LANGKAH PREVENTIF:</span>
+            
+            <div class="list-item">
+                <div class="check-icon">✓</div>
+                <div class="list-text">Konsumsi TTD rutin seminggu sekali (malam hari).</div>
+            </div>
+            
+            <div class="list-item">
+                <div class="check-icon">✓</div>
+                <div class="list-text">Pastikan asupan protein hewani terpenuhi setiap hari.</div>
+            </div>
+            
+            <div class="list-item">
+                <div class="check-icon">✓</div>
+                <div class="list-text">Cek kadar Hb secara berkala minimal 6 bulan sekali.</div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn btn-black" onclick="alert('Membuka Panduan Gizi...')">LIHAT PANDUAN GIZI</button>
+            <button class="btn btn-outline" onclick="alert('Kembali ke Dashboard...')">KE BERANDA</button>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item"><i>🏠</i><span>Beranda</span></div>
+        <div class="nav-item"><i>📅</i><span>Kalender</span></div>
+        <div class="nav-item active"><i>📋</i><span>Skrining</span></div>
+        <div class="nav-item"><i>📖</i><span>Edukasi</span></div>
+        <div class="nav-item"><i>👤</i><span>Profil</span></div>
+    </nav>
+</div>
+
+</body>
+</html>

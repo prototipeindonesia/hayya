@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Input Harian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --haid-accent: #FF7675;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --input-bg: #F1F2F6;
+            --shadow: 0 -10px 40px rgba(0,0,0,0.1);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: #F8F9FA;
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Latar Belakang Kalender (Simulasi) */
+        .calendar-bg {
+            padding: 60px 25px;
+            opacity: 0.15;
+            filter: blur(1px);
+            pointer-events: none;
+        }
+        .calendar-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr);
+            gap: 10px; margin-top: 20px;
+        }
+        .day {
+            aspect-ratio: 1; border-radius: 8px;
+            background: #DDD; display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 700;
+        }
+
+        /* Bottom Sheet */
+        .bottom-sheet {
+            position: absolute; bottom: 0; width: 100%;
+            background: var(--white);
+            border-radius: 35px 35px 0 0;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            z-index: 100;
+        }
+
+        .handle {
+            width: 45px; height: 5px;
+            background: #E0E0E0; border-radius: 10px;
+            margin: 0 auto 25px;
+        }
+
+        .section-title {
+            font-size: 18px; font-weight: 800;
+            color: var(--text-dark); margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 22px; }
+
+        label {
+            display: block; font-size: 11px; font-weight: 800;
+            color: var(--text-muted); margin-bottom: 12px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        /* Toggle Buttons */
+        .status-toggle {
+            display: flex; gap: 10px;
+        }
+        .toggle-btn {
+            flex: 1; padding: 14px; border-radius: 14px;
+            border: none; background: var(--input-bg);
+            color: var(--text-muted); font-size: 13px; font-weight: 700;
+            cursor: pointer; transition: 0.3s;
+        }
+        .toggle-btn.active {
+            background: var(--haid-accent);
+            color: white;
+            box-shadow: 0 8px 15px rgba(255, 118, 117, 0.3);
+        }
+
+        /* Select Styling */
+        select {
+            width: 100%; padding: 16px; border-radius: 14px;
+            border: 2px solid transparent; background: var(--input-bg);
+            font-family: 'Inter', sans-serif; font-size: 14px;
+            font-weight: 600; color: var(--text-dark); outline: none;
+        }
+
+        /* Range/Slider Styling */
+        .range-container {
+            padding: 10px 5px;
+        }
+        input[type="range"] {
+            width: 100%; height: 6px; border-radius: 5px;
+            background: #E0E0E0; outline: none;
+            accent-color: var(--haid-accent);
+            -webkit-appearance: none;
+        }
+        .nyeri-display {
+            display: flex; justify-content: space-between;
+            margin-top: 10px; font-size: 13px; font-weight: 800;
+        }
+        .nyeri-val { color: var(--haid-accent); font-size: 16px; }
+
+        /* Save Button */
+        .btn-save {
+            width: 100%; padding: 20px; border-radius: 20px;
+            background: var(--text-dark); color: white;
+            border: none; font-size: 15px; font-weight: 700;
+            cursor: pointer; margin-top: 10px;
+            transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .btn-save:active { transform: scale(0.97); opacity: 0.9; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="calendar-bg">
+        <div style="font-weight: 800; text-align: center; color: #2D3436;">MEI 2026</div>
+        <div class="calendar-grid">
+            <script>
+                for(let i=1; i<=31; i++) {
+                    document.write(`<div class="day">${i}</div>`);
+                }
+            </script>
+        </div>
+    </div>
+
+    <div class="bottom-sheet">
+        <div class="handle"></div>
+        <div class="section-title">Detail Hari Ini</div>
+
+        <div class="form-group">
+            <label>Status Haid</label>
+            <div class="status-toggle">
+                <button class="toggle-btn active">YA</button>
+                <button class="toggle-btn">TIDAK</button>
+                <button class="toggle-btn">FLEK</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Karakteristik Darah</label>
+            <div style="display: flex; gap: 10px;">
+                <select id="warna" style="flex: 1.5;">
+                    <option disabled>Pilih Warna...</option>
+                    <option value="hitam">Hitam (Strong)</option>
+                    <option value="merah" selected>Merah (Normal)</option>
+                    <option value="coklat">Coklat</option>
+                    <option value="kuning">Kuning</option>
+                    <option value="keruh">Keruh</option>
+                </select>
+                <select id="lancar" style="flex: 1;">
+                    <option>Deras</option>
+                    <option selected>Sedang</option>
+                    <option>Sedikit</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Tingkat Nyeri (Dysmenorrhea)</label>
+            <div class="range-container">
+                <input type="range" min="0" max="10" value="5" step="1" 
+                       oninput="document.getElementById('nyeri_label').innerText = this.value">
+                <div class="nyeri-display">
+                    <span>Nyaman</span>
+                    <span class="nyeri-val" id="nyeri_label">5</span>
+                    <span>Hebat</span>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-save" onclick="alert('Alhamdulillah! Data berhasil disimpan.'); window.location.href='visualisasikalender.html'">
+    SIMPAN CATATAN
+</button>
+    </div>
+</div>
+
+</body>
+</html>

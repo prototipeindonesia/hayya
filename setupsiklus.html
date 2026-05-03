@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Setup Siklus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --soft-bg: #F8F9FD;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --input-bg: #F1F2F6;
+            --shadow: 0 10px 30px rgba(108, 92, 231, 0.1);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--white);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .content {
+            flex: 1; padding: 60px 30px 40px;
+            display: flex; flex-direction: column;
+        }
+
+        /* Progress Bar */
+        .step-indicator {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 40px;
+        }
+        .step-dot { height: 6px; border-radius: 10px; background: #E0E0E0; flex: 1; }
+        .step-dot.active { background: var(--primary-grad); }
+        .step-dot.current { background: var(--primary-grad); flex: 2; }
+
+        /* Typography */
+        .header-section { margin-bottom: 30px; }
+        .header-section h1 { font-size: 28px; font-weight: 800; color: var(--text-dark); margin: 0; }
+        .header-section p { font-size: 14px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+
+        /* Selection Group */
+        .form-group { margin-bottom: 20px; }
+        .label-main {
+            display: block; font-size: 12px; font-weight: 700;
+            color: var(--text-dark); margin-bottom: 15px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .option-container { display: flex; flex-direction: column; gap: 12px; }
+        
+        .option-item { position: relative; }
+        .option-item input { position: absolute; opacity: 0; cursor: pointer; }
+
+        .option-label {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 20px; background: var(--input-bg);
+            border-radius: 20px; font-size: 15px; font-weight: 600;
+            color: var(--text-dark); cursor: pointer; transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .option-item input:checked + .option-label {
+            background: #F1F0FF;
+            border-color: #6C5CE7;
+            color: #6C5CE7;
+            box-shadow: var(--shadow);
+        }
+
+        /* Info Box */
+        .info-box {
+            background-color: #F8F9FD;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 10px;
+            border: 1px solid #E1F5FE;
+        }
+        .info-box strong { font-size: 13px; color: #0984E3; display: block; margin-bottom: 6px; }
+        .info-box p { font-size: 12px; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+        /* Action Button */
+        .btn-submit {
+            margin-top: auto; width: 100%; padding: 20px;
+            border: none; border-radius: 20px;
+            background: var(--primary-grad); color: white;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-submit:active { transform: scale(0.97); }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="content">
+        <div class="step-indicator">
+            <div class="step-dot active"></div>
+            <div class="step-dot current"></div>
+            <div class="step-dot"></div>
+        </div>
+
+        <div class="header-section">
+            <h1>Setup Siklus</h1>
+            <p>Informasi ini membantu HAYYA menghitung masa suci dan masa haid sesuai kaidah fiqh.</p>
+        </div>
+
+        <div class="form-group">
+            <label class="label-main">Rata-rata Durasi Haid</label>
+            <div class="option-container">
+                <label class="option-item">
+                    <input type="radio" name="durasi" value="3-5">
+                    <div class="option-label"><span>3 - 5 Hari</span> <span>✨</span></div>
+                </label>
+                <label class="option-item">
+                    <input type="radio" name="durasi" value="6-7">
+                    <div class="option-label"><span>6 - 7 Hari</span> <span>🌙</span></div>
+                </label>
+                <label class="option-item">
+                    <input type="radio" name="durasi" value=">7">
+                    <div class="option-label"><span>Lebih dari 7 Hari</span> <span>💧</span></div>
+                </label>
+                <label class="option-item">
+                    <input type="radio" name="durasi" value="irregular">
+                    <div class="option-label"><span>Tidak Teratur</span> <span>🔄</span></div>
+                </label>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <strong>💡 Mengapa ini penting?</strong>
+            <p>Durasi haid membantu kami menentukan klasifikasi medis serta perhitungan masa suci menurut Mazhab Syafi'i agar ibadahmu tetap terjaga.</p>
+        </div>
+
+        <button class="btn-submit" onclick="alert('Data siklus tersimpan. Melanjutkan ke Setup Suplemen...'); window.location.href='setupsuplemen.html'">
+            Simpan & Lanjut
+        </button>
+    </div>
+</div>
+
+</body>
+</html>

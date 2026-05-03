@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Setup Suplemen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --soft-bg: #F8F9FD;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --input-bg: #F1F2F6;
+            --shadow: 0 10px 30px rgba(108, 92, 231, 0.1);
+            --info-blue: #E1F5FE;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--white);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .content {
+            flex: 1; padding: 60px 30px 40px;
+            display: flex; flex-direction: column;
+        }
+
+        /* Progress Bar */
+        .step-indicator {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 40px;
+        }
+        .step-dot { height: 6px; border-radius: 10px; background: #E0E0E0; flex: 1; }
+        .step-dot.active { background: var(--primary-grad); }
+        .step-dot.current { background: var(--primary-grad); flex: 2; }
+
+        /* Typography */
+        .header-section { margin-bottom: 35px; }
+        .header-section h1 { font-size: 28px; font-weight: 800; color: var(--text-dark); margin: 0; }
+        .header-section p { font-size: 14px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+
+        /* Question & Options */
+        .question-text {
+            display: block; font-size: 15px; font-weight: 700;
+            color: var(--text-dark); margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options-list { display: flex; flex-direction: column; gap: 12px; }
+        
+        .option-item { position: relative; }
+        .option-item input { position: absolute; opacity: 0; cursor: pointer; }
+
+        .option-label {
+            display: flex; align-items: center;
+            padding: 18px 20px; background: var(--input-bg);
+            border-radius: 20px; font-size: 15px; font-weight: 600;
+            color: var(--text-dark); cursor: pointer; transition: 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .option-item input:checked + .option-label {
+            background: #F1F0FF;
+            border-color: #6C5CE7;
+            color: #6C5CE7;
+            box-shadow: var(--shadow);
+        }
+
+        /* Info Box */
+        .info-note {
+            background-color: #FFFDF0;
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 30px;
+            border: 1px solid #FEF3C7;
+            display: flex; gap: 12px;
+        }
+        .info-note span { font-size: 20px; }
+        .info-note p { font-size: 12px; color: #92400E; line-height: 1.6; margin: 0; }
+        .info-note b { color: #B45309; }
+
+        /* Action Button */
+        .btn-finish {
+            margin-top: auto; width: 100%; padding: 20px;
+            border: none; border-radius: 20px;
+            background: var(--primary-grad); color: white;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-finish:active { transform: scale(0.97); }
+
+        .disclaimer-bottom {
+            font-size: 11px; color: var(--text-muted);
+            margin-top: 15px; text-align: center; font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="content">
+        <div class="step-indicator">
+            <div class="step-dot active"></div>
+            <div class="step-dot active"></div>
+            <div class="step-dot current"></div>
+        </div>
+
+        <div class="header-section">
+            <h1>Setup Suplemen</h1>
+            <p>Langkah terakhir untuk membantu kami memantau asupan zat besimu.</p>
+        </div>
+
+        <div class="form-group">
+            <label class="question-text">
+                Apakah Anda sedang mengonsumsi Tablet Tambah Darah (TTD) saat ini?
+            </label>
+            
+            <div class="options-list">
+                <label class="option-item">
+                    <input type="radio" name="ttd_status" value="ya">
+                    <div class="option-label">Ya, Rutin</div>
+                </label>
+                <label class="option-item">
+                    <input type="radio" name="ttd_status" value="tidak">
+                    <div class="option-label">Tidak / Belum</div>
+                </label>
+                <label class="option-item">
+                    <input type="radio" name="ttd_status" value="belum_tahu">
+                    <div class="option-label">Saya Tidak Tahu</div>
+                </label>
+            </div>
+        </div>
+
+        <div class="info-note">
+            <span>💡</span>
+            <p><b>Penting:</b> Jawaban ini akan disinkronkan dengan kalkulasi <i>Anemia Risk Score</i> pada Dashboard Anda untuk memberikan rekomendasi yang akurat.</p>
+        </div>
+
+        <button class="btn-finish" onclick="alert('Alhamdulillah! Setup selesai. Selamat datang di HAYYA.'); window.location.href='dashboard.html'">
+            SELESAI & MASUK BERANDA
+        </button>
+
+        <p class="disclaimer-bottom">
+            Informasi ini digunakan untuk pemantauan mandiri dan bukan merupakan diagnosis medis formal.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

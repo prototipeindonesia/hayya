@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Setup Profil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --soft-bg: #F8F9FD;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --input-bg: #F1F2F6;
+            --shadow: 0 10px 30px rgba(108, 92, 231, 0.1);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--white);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .content {
+            flex: 1; padding: 60px 30px 40px;
+            display: flex; flex-direction: column;
+        }
+
+        /* Progress Bar */
+        .step-indicator {
+            display: flex; align-items: center; gap: 8px; margin-bottom: 40px;
+        }
+        .step-dot { height: 6px; border-radius: 10px; background: #E0E0E0; flex: 1; }
+        .step-dot.active { background: var(--primary-grad); flex: 2; }
+
+        /* Typography */
+        .header-section { margin-bottom: 35px; }
+        .header-section h1 { font-size: 28px; font-weight: 800; color: var(--text-dark); margin: 0; }
+        .header-section p { font-size: 14px; color: var(--text-muted); margin-top: 8px; }
+
+        /* Form Styling */
+        .form-group { margin-bottom: 25px; }
+        label {
+            display: block; font-size: 12px; font-weight: 700;
+            color: var(--text-dark); margin-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        input[type="text"], input[type="date"] {
+            width: 100%; padding: 16px 20px;
+            border: 2px solid transparent; border-radius: 16px;
+            background: var(--input-bg); font-family: 'Inter', sans-serif;
+            font-size: 14px; font-weight: 600; color: var(--text-dark);
+            transition: 0.3s;
+        }
+
+        input:focus {
+            outline: none; background: var(--white);
+            border-color: #A29BFE; box-shadow: var(--shadow);
+        }
+
+        /* Custom Radio Buttons */
+        .radio-group { display: flex; gap: 12px; margin-top: 5px; }
+        .radio-item { flex: 1; position: relative; }
+        .radio-item input { position: absolute; opacity: 0; cursor: pointer; }
+        
+        .radio-label {
+            display: flex; align-items: center; justify-content: center;
+            padding: 14px; background: var(--input-bg);
+            border-radius: 14px; font-size: 14px; font-weight: 700;
+            color: var(--text-muted); cursor: pointer; transition: 0.3s;
+        }
+
+        .radio-item input:checked + .radio-label {
+            background: var(--primary-grad); color: white;
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.2);
+        }
+
+        /* Action Button */
+        .btn-submit {
+            margin-top: auto; width: 100%; padding: 20px;
+            border: none; border-radius: 20px;
+            background: var(--primary-grad); color: white;
+            font-size: 16px; font-weight: 700; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-submit:active { transform: scale(0.97); }
+
+        .disclaimer {
+            font-size: 11px; color: var(--text-muted);
+            margin-top: 20px; text-align: center; line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="content">
+        <div class="step-indicator">
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+        </div>
+
+        <div class="header-section">
+            <h1>Setup Profil</h1>
+            <p>Mari personalisasi pengalaman HAYYA sesuai kebutuhan tubuhmu.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Contoh: Fatimah Az-Zahra">
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Tanggal Lahir</label>
+            <input type="date" id="dob">
+        </div>
+
+        <div class="form-group">
+            <label>Apakah sedang haid hari ini?</label>
+            <div class="radio-group">
+                <div class="radio-item">
+                    <input type="radio" name="haid_status" id="haid_ya" value="ya">
+                    <label for="haid_ya" class="radio-label">Ya</label>
+                </div>
+                <div class="radio-item">
+                    <input type="radio" name="haid_status" id="haid_tidak" value="tidak">
+                    <label for="haid_tidak" class="radio-label">Tidak</label>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-submit" onclick="alert('Data profil disimpan. Melanjutkan ke setup siklus...'); window.location.href='setupsiklus.html'">
+    Simpan & Lanjut
+</button>
+
+        <p class="disclaimer">
+            Data Anda tersimpan secara privat di perangkat ini untuk menjaga kerahasiaan siklus ibadah Anda.
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Analisis Medis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
+            --med-success: #00B894;
+            --med-warning: #FDCB6E;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --soft-bg: #F8F9FD;
+            --shadow: 0 10px 30px rgba(108, 92, 231, 0.1);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--soft-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Top Bar with Back Button */
+        .top-bar {
+            padding: 50px 20px 10px;
+            background: var(--white);
+            display: flex; align-items: center;
+            justify-content: space-between;
+        }
+        .btn-icon-back {
+            background: #F1F2F6; border: none; width: 40px; height: 40px;
+            border-radius: 12px; cursor: pointer; font-size: 18px;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .header-title { flex: 1; text-align: center; margin-right: 40px; }
+        .header-title h2 { font-size: 14px; font-weight: 800; color: var(--text-dark); margin: 0; text-transform: uppercase; }
+
+        /* Tabs */
+        .tabs {
+            display: flex; background: var(--white);
+            padding: 0 20px; border-bottom: 1px solid #F1F2F6;
+        }
+        .tab {
+            flex: 1; padding: 15px 0; text-align: center;
+            font-size: 12px; font-weight: 700; color: #B2BEC3;
+            cursor: pointer; transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .tab.active {
+            color: #6C5CE7;
+            border-bottom: 3px solid #6C5CE7;
+        }
+
+        /* Content Area */
+        .content { padding: 25px; flex: 1; overflow-y: auto; }
+
+        .date-badge {
+            display: inline-block; padding: 6px 16px;
+            background: #F1F2F6; border-radius: 20px;
+            font-size: 12px; font-weight: 600; color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Result Card */
+        .status-card {
+            background: var(--white); border-radius: 28px;
+            padding: 30px 20px; text-align: center;
+            box-shadow: var(--shadow); margin-bottom: 25px;
+            border: 1px solid #E1F5FE;
+        }
+
+        .status-label { font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .status-value { font-size: 32px; font-weight: 800; color: var(--med-success); margin: 10px 0; }
+        
+        .who-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #E6FFF9; color: var(--med-success);
+            padding: 6px 14px; border-radius: 12px; font-size: 10px; font-weight: 700;
+        }
+
+        /* Details */
+        .details-list { background: var(--white); border-radius: 24px; padding: 20px; margin-bottom: 20px; }
+        .detail-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0; border-bottom: 1px solid #F1F2F6;
+        }
+        .detail-item:last-child { border-bottom: none; }
+        .detail-item span:first-child { font-size: 13px; color: var(--text-muted); font-weight: 600; }
+        .detail-item span:last-child { font-size: 13px; color: var(--text-dark); font-weight: 700; }
+
+        .insight-box {
+            background: #FFFDF0; border-radius: 18px; padding: 15px;
+            border: 1px solid #FEF3C7; font-size: 12px;
+            color: #92400E; line-height: 1.6;
+        }
+
+        /* Disclaimer */
+        .disclaimer-box {
+            margin-top: 30px; padding: 15px;
+            border-radius: 16px; background: #F1F2F6;
+            font-size: 10px; color: var(--text-muted);
+            text-align: center; line-height: 1.5; font-style: italic;
+        }
+
+        .btn-back-full {
+            width: 100%; padding: 18px; border: none;
+            border-radius: 18px; background: var(--text-dark);
+            color: white; font-size: 14px; font-weight: 700;
+            cursor: pointer; margin-top: 20px; transition: 0.3s;
+        }
+        .btn-back-full:active { transform: scale(0.98); opacity: 0.9; }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="top-bar">
+        <button class="btn-icon-back" onclick="window.location.href='visualisasikalender.html'">❮</button>
+        <div class="header-title">
+            <h2>Analisis Harian</h2>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab" onclick="window.location.href='cekstatusfiqh.html'">STATUS FIQH</div>
+        <div class="tab active">STATUS MEDIS</div>
+    </div>
+
+    <div class="content">
+        <center><div class="date-badge">📅 Selasa, 13 Mei 2026</div></center>
+
+        <div class="status-card">
+            <div class="status-label">Kondisi Siklus</div>
+            <div class="status-value">NORMAL</div>
+            <div class="who-badge">
+                <span>🌐</span> Standar Medis WHO
+            </div>
+        </div>
+
+        <div class="details-list">
+            <div class="detail-item">
+                <span>Durasi Haid</span>
+                <span>5 Hari</span>
+            </div>
+            <div class="detail-item">
+                <span>Kelancaran</span>
+                <span>Sedang</span>
+            </div>
+            <div class="detail-item">
+                <span>Skala Nyeri</span>
+                <span>4/10 (Ringan)</span>
+            </div>
+        </div>
+
+        <div class="insight-box">
+            <b>💡 Tips Hari Ini:</b><br>
+            Volume dan durasi Anda berada dalam rentang optimal. Pastikan asupan Vitamin C cukup untuk membantu penyerapan zat besi dari TTD.
+        </div>
+
+        <div class="disclaimer-box">
+            Analisis ini dihasilkan berdasarkan input mandiri dan algoritma kesehatan umum. Informasi ini bukan merupakan diagnosis medis formal.
+        </div>
+
+        <button class="btn-back-full" onclick="window.location.href='visualisasikalender.html'">KEMBALI KE KALENDER</button>
+    </div>
+</div>
+
+</body>
+</html>

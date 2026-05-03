@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Layanan Medis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #E67E93 0%, #D85D78 100%);
+            --urgent-grad: linear-gradient(135deg, #FF4B5C 0%, #D63031 100%);
+            --secondary-grad: linear-gradient(135deg, #636E72 0%, #2D3436 100%);
+            --urgent-bg: #FFF5F5;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 25px rgba(214, 48, 49, 0.1);
+            --online: #27AE60;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: #F8F9FA;
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header */
+        .header {
+            padding: 50px 20px 15px;
+            background: var(--white);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            z-index: 10; flex-shrink: 0;
+        }
+        .header strong { font-size: 16px; letter-spacing: 1px; color: var(--text-dark); text-transform: uppercase; }
+
+        .content { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+
+        /* Status Alert */
+        .status-alert {
+            background: var(--urgent-bg);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid #FFD7D7;
+            box-shadow: var(--shadow);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .alert-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: #D63031; }
+        .alert-header b { font-size: 14px; font-weight: 800; }
+        .alert-text { font-size: 12px; color: #636E72; line-height: 1.6; margin: 0; }
+
+        /* Consultation Section */
+        .section-label { font-size: 13px; font-weight: 800; color: var(--text-dark); margin-bottom: 5px; display: block; }
+        
+        .doctor-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 16px;
+            display: flex; gap: 15px; align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #F1F2F6;
+            cursor: pointer; transition: 0.2s;
+        }
+        .doctor-card:active { transform: scale(0.97); background: #FAFAFA; }
+
+        .doc-avatar {
+            width: 55px; height: 55px;
+            border-radius: 18px;
+            background: #F0F2F5;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; border: 1px solid #E9ECEF;
+        }
+
+        .doc-info { flex: 1; }
+        .doc-name { font-size: 14px; font-weight: 700; color: var(--text-dark); display: block; }
+        .doc-spec { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block; }
+
+        .status-indicator { font-size: 9px; font-weight: 800; padding: 4px 10px; border-radius: 8px; text-transform: uppercase; }
+        .online { background: #E8F5EE; color: var(--online); }
+        .busy { background: #F1F2F6; color: #B2BEC3; }
+
+        /* Call Button */
+        .btn-call {
+            width: 100%;
+            padding: 20px;
+            background: var(--secondary-grad);
+            color: white;
+            border: none;
+            border-radius: 22px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transition: 0.3s;
+        }
+        .btn-call:active { transform: scale(0.95); }
+
+        /* Emergency Box */
+        .emergency-card {
+            background: #FFFBEB;
+            border-radius: 26px;
+            padding: 20px;
+            border: 1px solid #FEF3C7;
+            margin-bottom: 20px;
+        }
+        .emergency-title { font-size: 13px; font-weight: 800; color: #92400E; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .emergency-list { font-size: 11px; color: #B45309; padding-left: 18px; margin: 0; line-height: 1.8; }
+        .emergency-list li { margin-bottom: 6px; }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            background: var(--white); border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 10px 10px 25px; height: 90px; flex-shrink: 0;
+            z-index: 100;
+        }
+        .nav-link { text-align: center; color: #B2BEC3; transition: 0.3s; cursor: pointer; border: none; background: none; flex: 1; outline: none; text-decoration: none;}
+        .nav-link.active { color: #D85D78; }
+        .nav-link i { font-size: 22px; display: block; margin-bottom: 4px; font-style: normal; }
+        .nav-link span { font-size: 10px; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <strong>Pusat Bantuan Medis</strong>
+    </div>
+
+    <div class="content">
+        <div class="status-alert">
+            <div class="alert-header">
+                <span>⚠️</span>
+                <b>PERLU TINDAKAN MEDIS</b>
+            </div>
+            <p class="alert-text">
+                Berdasarkan skrining terakhir, skor risiko Anda berada di zona <b>Tinggi</b>. Hal ini dapat memengaruhi konsentrasi kerja dan kebugaran Anda di Bapperida Palopo.
+            </p>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            <span class="section-label">Konsultasi Dokter (Online)</span>
+
+            <div class="doctor-card" onclick="alert('Membuka Chat dr. Siti Aminah...')">
+                <div class="doc-avatar">👩‍⚕️</div>
+                <div class="doc-info">
+                    <span class="doc-name">dr. Siti Aminah</span>
+                    <span class="doc-spec">Dokter Umum / Konsultan Anemia</span>
+                </div>
+                <span class="status-indicator online">ONLINE</span>
+            </div>
+
+            <div class="doctor-card" onclick="alert('Dokter sedang menangani pasien lain.')">
+                <div class="doc-avatar">👨‍⚕️</div>
+                <div class="doc-info">
+                    <span class="doc-name">dr. Ahmad Faisal</span>
+                    <span class="doc-spec">Spesialis Penyakit Dalam</span>
+                </div>
+                <span class="status-indicator busy">SIBUK</span>
+            </div>
+        </div>
+
+        <button class="btn-call" onclick="window.location.href='https://maps.google.com/?q=Rumah+Sakit+Palopo'">
+            🏥 FASILITAS KESEHATAN TERDEKAT
+        </button>
+
+        <div class="emergency-card">
+            <div class="emergency-title">🚨 KAPAN HARUS KE RUMAH SAKIT?</div>
+            <ul class="emergency-list">
+                <li>Pusing hebat disertai pandangan gelap/pingsan.</li>
+                <li>Nyeri dada atau jantung berdebar sangat kencang.</li>
+                <li>Sesak napas meskipun sedang beristirahat.</li>
+                <li>Pucat ekstrem pada wajah, kuku, dan telapak tangan.</li>
+            </ul>
+        </div>
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="dashboard.html" class="nav-link">
+            <i>🏠</i><span>Beranda</span>
+        </a>
+        <a href="kalender.html" class="nav-link">
+            <i>📅</i><span>Kalender</span>
+        </a>
+        <a href="skrininganemia.html" class="nav-link">
+            <i>⚖️</i><span>Skrining</span>
+        </a>
+        <a href="fiqhistigadah.html" class="nav-link">
+            <i>📖</i><span>Panduan</span>
+        </a>
+        <a href="profil.html" class="nav-link">
+            <i>👤</i><span>Profil</span>
+        </a>
+    </nav>
+</div>
+
+</body>
+</html>

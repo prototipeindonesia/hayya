@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Panduan Olahraga Ringan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%);
+            --btn-grad: linear-gradient(135deg, #E67E93 0%, #D85D78 100%);
+            --secondary-grad: linear-gradient(135deg, #636E72 0%, #2D3436 100%);
+            --soft-bg: #F8FAFC;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--soft-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header */
+        .header {
+            padding: 50px 20px 15px;
+            background: var(--white);
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            z-index: 10;
+        }
+
+        .back-btn {
+            width: 35px; height: 35px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            background: #F1F2F6; cursor: pointer; color: var(--text-dark);
+        }
+
+        .content { flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 100px; }
+
+        /* Intro */
+        .intro-section { margin-bottom: 25px; }
+        .intro-section h2 { font-size: 22px; font-weight: 800; color: var(--text-dark); margin: 0 0 8px 0; }
+        .intro-section p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+        /* Exercise Card */
+        .sport-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 16px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: 0.3s;
+        }
+
+        .sport-card:active { transform: scale(0.98); }
+
+        .icon-box {
+            width: 60px; height: 60px;
+            background: var(--primary-grad);
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; flex-shrink: 0;
+        }
+
+        .sport-info { flex: 1; }
+        .tag {
+            display: inline-block;
+            background: #F1F2F6;
+            color: var(--text-muted);
+            font-size: 9px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sport-info h3 { font-size: 15px; font-weight: 700; color: var(--text-dark); margin: 0 0 4px 0; }
+        .sport-info p { font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+        /* Note Box */
+        .note-box {
+            background: #FFFBEB;
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border: 1px solid #FEF3C7;
+        }
+        .note-title { font-size: 12px; font-weight: 800; color: #92400E; display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+        .note-content { font-size: 11px; color: #B45309; line-height: 1.5; }
+
+        /* Doctor Button */
+        .btn-doctor {
+            width: 100%;
+            padding: 18px;
+            background: var(--secondary-grad);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: absolute; bottom: 0; width: 100%; height: 85px;
+            background: var(--white); border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding-bottom: 15px;
+        }
+        .nav-link { text-align: center; color: #B2BEC3; font-size: 10px; font-weight: 700; cursor: pointer; }
+        .nav-link.active { color: #E67E93; }
+        .nav-link i { font-size: 22px; display: block; margin-bottom: 4px; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <div class="back-btn" onclick="history.back()">❮</div>
+        <strong style="font-size: 16px; color: var(--text-dark);">Panduan Olahraga</strong>
+    </div>
+
+    <div class="content">
+        <div class="intro-section">
+            <h2>Gerak Aktif, Tubuh Fit</h2>
+            <p>Aktivitas fisik ringan membantu sirkulasi oksigen lebih optimal dan mendukung metabolisme zat besi dalam tubuh Anda.</p>
+        </div>
+
+        <div class="sport-card">
+            <div class="icon-box">🚶</div>
+            <div class="sport-info">
+                <div class="tag">Metabolisme</div>
+                <h3>Jalan Santai</h3>
+                <p>Cukup 15-20 menit di pagi hari untuk meningkatkan aliran oksigen ke seluruh jaringan tubuh.</p>
+            </div>
+        </div>
+
+        <div class="sport-card">
+            <div class="icon-box">🧘</div>
+            <div class="sport-info">
+                <div class="tag">Relaksasi</div>
+                <h3>Yoga & Stretching</h3>
+                <p>Sangat efektif mengurangi kram perut saat haid. Fokus pada peregangan area panggul.</p>
+            </div>
+        </div>
+
+        <div class="sport-card">
+            <div class="icon-box">💃</div>
+            <div class="sport-info">
+                <div class="tag">Sirkulasi</div>
+                <h3>Aerobik Low-Impact</h3>
+                <p>Gerakan sederhana tanpa lompatan (non-impact) untuk menjaga kebugaran jantung tanpa kelelahan berlebih.</p>
+            </div>
+        </div>
+
+        <div class="note-box">
+            <div class="note-title">💡 Catatan Kesehatan</div>
+            <div class="note-content">
+                Hentikan aktivitas jika Anda merasa pusing atau sangat lemas. Utamakan <b>kebugaran</b>, bukan memaksakan intensitas tinggi.
+            </div>
+        </div>
+
+        <button class="btn-doctor" onclick="alert('Menghubungkan ke layanan medis...')">
+            🏥 Hubungi Dokter Klinik
+        </button>
+
+        <p style="font-size: 10px; text-align: center; color: var(--text-muted); font-style: italic; margin-top: 15px; line-height: 1.4;">
+            Konsultasikan dengan dokter jika Anda memiliki kondisi medis khusus atau kehamilan.
+        </p>
+    </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-link"><i>🏠</i><span>Beranda</span></div>
+        <div class="nav-link"><i>📅</i><span>Kalender</span></div>
+        <div class="nav-link"><i>⚖️</i><span>Skrining</span></div>
+        <div class="nav-link active"><i>📖</i><span>Panduan</span></div>
+        <div class="nav-link"><i>👤</i><span>Profil</span></div>
+    </nav>
+</div>
+
+</body>
+</html>

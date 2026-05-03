@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Status Istihadhah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-grad: linear-gradient(135deg, #4A90E2 0%, #63B3ED 100%);
+            --secondary-grad: linear-gradient(135deg, #636E72 0%, #2D3436 100%);
+            --istihadhah-soft: #F0F7FF;
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --shadow: 0 10px 25px rgba(74, 144, 226, 0.1);
+            --success: #27ae60;
+            --info: #2980b9;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--istihadhah-soft);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header */
+        .header {
+            padding: 50px 20px 15px;
+            background: var(--white);
+            display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            width: 35px; height: 35px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            background: #f8f9fa; cursor: pointer; color: var(--text-dark);
+            border: none; outline: none;
+        }
+
+        /* Content Area */
+        .content { 
+            flex: 1; 
+            overflow-y: auto; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Status Banner */
+        .status-card {
+            background: var(--primary-grad);
+            border-radius: 28px; padding: 25px; color: white;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(74, 144, 226, 0.2);
+            flex-shrink: 0;
+        }
+        .status-title { font-size: 24px; font-weight: 800; display: block; letter-spacing: 1px; }
+        .status-badge { 
+            display: inline-block; background: rgba(255,255,255,0.25); 
+            padding: 6px 14px; border-radius: 20px; font-size: 11px; 
+            font-weight: 700; margin-top: 10px; text-transform: uppercase;
+        }
+
+        /* Quote Card */
+        .quote-card {
+            background: var(--white); padding: 18px; border-radius: 22px;
+            border-left: 5px solid #4A90E2;
+            box-shadow: var(--shadow);
+        }
+        .quote-card i { font-size: 13px; color: var(--text-muted); line-height: 1.6; display: block; font-style: italic; }
+        .quote-card span { font-size: 11px; font-weight: 700; color: var(--text-dark); margin-top: 8px; display: block; }
+
+        /* Guide Items */
+        .guide-section { display: flex; flex-direction: column; gap: 12px; }
+        .section-label { font-size: 15px; font-weight: 800; color: var(--text-dark); }
+        
+        .guide-item {
+            background: var(--white); padding: 15px; border-radius: 18px;
+            display: flex; align-items: center; gap: 15px; font-size: 12px;
+            box-shadow: var(--shadow);
+        }
+        .guide-item b { color: var(--info); display: block; margin-bottom: 2px; }
+        .icon-check { 
+            width: 24px; height: 24px; background: #E8F5E9; color: var(--success); 
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; flex-shrink: 0;
+        }
+
+        /* Procedure Card */
+        .proc-card {
+            background: #EBF8FF; border-radius: 26px; padding: 22px;
+            border: 1px solid #BEE3F8;
+            margin-bottom: 10px;
+        }
+        .proc-title { color: #2C5282; font-size: 14px; font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        .proc-list { font-size: 12px; color: #2D3748; padding-left: 18px; line-height: 1.8; margin: 0; }
+        .proc-list li { margin-bottom: 8px; padding-left: 5px; }
+
+        /* Action Button */
+        .btn-doctor {
+            background: var(--secondary-grad); color: white; border: none;
+            width: 100%; padding: 18px; border-radius: 22px;
+            font-size: 14px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: 0.3s;
+            margin-bottom: 10px;
+        }
+        .btn-doctor:active { transform: scale(0.98); }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            background: var(--white); border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 10px 10px 25px; height: 90px; flex-shrink: 0;
+            z-index: 100;
+        }
+        .nav-link { text-align: center; color: #B2BEC3; transition: 0.3s; cursor: pointer; border: none; background: none; flex: 1; outline: none; }
+        .nav-link.active { color: #4A90E2; }
+        .nav-link i { font-size: 24px; display: block; margin-bottom: 4px; font-style: normal; }
+        .nav-link span { font-size: 10px; font-weight: 700; }
+
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <button class="back-btn" onclick="window.location.href='dashboard.html'">❮</button>
+        <strong style="font-size: 16px; color: var(--text-dark);">Panduan Ibadah</strong>
+    </div>
+
+    <div class="content">
+        <div class="status-card">
+            <span class="status-title">ISTIHADHAH</span>
+            <div class="status-badge">Kondisi Suci (Bukan Haid)</div>
+        </div>
+
+        <div class="quote-card">
+            <i>"Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya..."</i>
+            <span>QS. Al-Baqarah: 286</span>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 12px; line-height: 1.5; border-top: 1px dashed #DDD; padding-top: 10px;">
+                <b>Pesan:</b> Menjaga kesucian saat lelah adalah perjuangan besar. Setiap tetes wudhumu bernilai pahala ketaatan.
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <span class="section-label">Kewajiban Ibadah</span>
+            <div class="guide-item">
+                <div class="icon-check">✓</div>
+                <div><b>Wajib Shalat</b>Status hukum suci, shalat tidak boleh ditinggalkan.</div>
+            </div>
+            <div class="guide-item">
+                <div class="icon-check">✓</div>
+                <div><b>Wajib Puasa</b>Tetap menjalankan puasa Ramadan maupun sunnah.</div>
+            </div>
+            <div class="guide-item">
+                <div class="icon-check">✓</div>
+                <div><b>Interaksi Al-Qur'an</b>Boleh membaca dan menyentuh Mushaf Al-Qur'an.</div>
+            </div>
+        </div>
+
+        <div class="proc-card">
+            <span class="proc-title">🚿 Cara Bersuci (Syafi'i)</span>
+            <ol class="proc-list">
+                <li>Bersihkan kemaluan <b>setelah masuk waktu</b> shalat.</li>
+                <li>Gunakan pembalut bersih untuk menahan darah.</li>
+                <li><b>Segera berwudhu</b> (Wudhu untuk 1 shalat fardhu).</li>
+                <li>Laksanakan shalat tanpa menunda-nunda.</li>
+            </ol>
+        </div>
+
+        <button class="btn-doctor" onclick="window.location.href='hubungidokter.html'">
+            🏥 Konsultasi Dokter
+        </button>
+
+        <p style="text-align: center; font-size: 10px; color: var(--text-muted); padding-bottom: 20px; font-style: italic; line-height: 1.4;">
+            Istihadhah medis bisa menjadi tanda gangguan hormon. Periksakan jika terjadi lebih dari 15 hari.
+        </p>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="nav-link" onclick="window.location.href='dashboard.html'">
+            <i>🏠</i><span>Beranda</span>
+        </button>
+        <button class="nav-link" onclick="window.location.href='visualisasikalender.html'">
+            <i>📅</i><span>Kalender</span>
+        </button>
+        <button class="nav-link" onclick="window.location.href='skrininganemia.html'">
+            <i>⚖️</i><span>Skrining</span>
+        </button>
+        <button class="nav-link active" onclick="window.location.href='fiqhistigadah.html'">
+            <i>📖</i><span>Panduan</span>
+        </button>
+        <button class="nav-link" onclick="window.location.href='profil.html'">
+            <i>👤</i><span>Profil</span>
+        </button>
+    </nav>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Profil Pengguna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-rose: #E67E93;
+            --primary-grad: linear-gradient(135deg, #E67E93 0%, #F4A7B9 100%);
+            --white: #ffffff;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --soft-bg: #F8F9FD;
+            --shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #DFE6E9;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0;
+        }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: var(--soft-bg);
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        /* Header Profile */
+        .profile-header {
+            background: var(--primary-grad);
+            padding: 60px 25px 50px; /* Ditambah padding bawah agar stats-row punya ruang */
+            text-align: center;
+            color: white;
+            border-radius: 0 0 40px 40px;
+            flex-shrink: 0;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 100px; height: 100px;
+            margin: 0 auto 15px;
+        }
+
+        .avatar-big {
+            width: 100%; height: 100%;
+            border-radius: 35px;
+            background: white;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 40px; font-weight: 800; color: var(--primary-rose);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .edit-badge {
+            position: absolute; bottom: -5px; right: -5px;
+            background: #2D3436; width: 32px; height: 32px;
+            border-radius: 10px; display: flex; justify-content: center;
+            align-items: center; font-size: 14px; border: 3px solid var(--primary-rose);
+        }
+
+        .user-name { font-size: 20px; font-weight: 800; margin: 5px 0; }
+        .user-status { font-size: 12px; opacity: 0.9; font-weight: 600; }
+
+        /* Area Content dengan Scroll */
+        .content { 
+            padding: 0 20px 20px; 
+            flex: 1; 
+            overflow-y: auto; 
+            margin-top: -30px; /* Menaikkan sedikit saja agar menyentuh header */
+            z-index: 2;
+        }
+
+        /* Stats Grid */
+        .stats-row { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            margin-bottom: 25px; 
+        }
+        .stat-card {
+            background: white; padding: 18px 15px; border-radius: 24px;
+            text-align: center; box-shadow: var(--shadow);
+            border: 1px solid rgba(230, 126, 147, 0.1);
+        }
+        .stat-val { font-size: 18px; font-weight: 800; color: var(--primary-rose); display: block; }
+        .stat-label { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-top: 4px; display: block; }
+
+        /* Settings List */
+        .menu-group { background: white; border-radius: 28px; padding: 8px; margin-bottom: 20px; box-shadow: var(--shadow); }
+        .menu-item {
+            display: flex; align-items: center; padding: 14px;
+            gap: 15px; cursor: pointer; transition: 0.2s;
+            border-radius: 20px;
+        }
+        .menu-item:active { background: var(--soft-bg); transform: scale(0.98); }
+        .menu-icon { 
+            width: 42px; height: 42px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+        }
+        .menu-label { flex: 1; font-size: 14px; font-weight: 700; color: var(--text-dark); }
+        .menu-arrow { color: #B2BEC3; font-size: 12px; }
+
+        /* Logout Button */
+        .logout-btn {
+            width: 100%; padding: 18px; border-radius: 22px;
+            background: #FFF5F5; color: #FF7675; border: 1px solid rgba(255, 118, 117, 0.1);
+            font-size: 14px; font-weight: 800; cursor: pointer;
+            margin-top: 10px; transition: 0.3s;
+        }
+        .logout-btn:active { background: #FFE0E0; }
+
+        /* Bottom Nav (Fixed at bottom) */
+        .bottom-nav {
+            background: white; border-top: 1px solid #F1F1F1;
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 10px 10px 25px; 
+            height: 90px;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+        .nav-link { text-align: center; color: #B2BEC3; transition: 0.3s; cursor: pointer; border: none; background: none; flex: 1; outline: none; }
+        .nav-link.active { color: var(--primary-rose); }
+        .nav-link i { font-size: 24px; display: block; margin-bottom: 4px; font-style: normal; }
+        .nav-link span { font-size: 10px; font-weight: 700; }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="profile-header">
+        <div class="avatar-container">
+            <div class="avatar-big">T</div>
+            <div class="edit-badge" onclick="alert('Ubah Foto Profil')">✏️</div>
+        </div>
+        <h2 class="user-name">Talitha</h2>
+        <span class="user-status">Remaja Putri • Semarang, Jawa Tengah</span>
+    </div>
+
+    <div class="content">
+        <div class="stats-row">
+            <div class="stat-card">
+                <span class="stat-val">21 Hari</span>
+                <span class="stat-label">Streak TTD</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-val">12.5 g/dL</span>
+                <span class="stat-label">Hb Terakhir</span>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <div class="menu-item" onclick="window.location.href='setupprofil.html'">
+                <div class="menu-icon" style="background: #E3F2FD; color: #2196F3;">👤</div>
+                <span class="menu-label">Data Personal</span>
+                <span class="menu-arrow">❯</span>
+            </div>
+            <div class="menu-item" onclick="window.location.href='setupsiklus.html'">
+                <div class="menu-icon" style="background: #F3E5F5; color: #9C27B0;">📅</div>
+                <span class="menu-label">Pengaturan Siklus</span>
+                <span class="menu-arrow">❯</span>
+            </div>
+            <div class="menu-item" onclick="window.location.href='setupsuplemen.html'">
+                <div class="menu-icon" style="background: #FFF3E0; color: #FF9800;">💊</div>
+                <span class="menu-label">Jadwal Suplemen</span>
+                <span class="menu-arrow">❯</span>
+            </div>
+        </div>
+
+        <div class="menu-group">
+            <div class="menu-item" onclick="alert('Membuka Pusat Bantuan...')">
+                <div class="menu-icon" style="background: #E8F5E9; color: #4CAF50;">❓</div>
+                <span class="menu-label">Bantuan & FAQ</span>
+                <span class="menu-arrow">❯</span>
+            </div>
+            <div class="menu-item" onclick="alert('HAYYA v1.0.4 - Palopo Innovation')">
+                <div class="menu-icon" style="background: #ECEFF1; color: #607D8B;">ℹ️</div>
+                <span class="menu-label">Tentang Aplikasi</span>
+                <span class="menu-arrow">❯</span>
+            </div>
+        </div>
+
+        <button class="logout-btn" onclick="confirm('Apakah Anda yakin ingin keluar?') ? window.location.href='index.html' : null">
+            Keluar Akun
+        </button>
+
+        <p style="text-align: center; font-size: 10px; color: var(--text-muted); margin: 25px 0 10px;">
+            HAYYA • Data terenkripsi secara lokal
+        </p>
+    </div>
+
+    <nav class="bottom-nav">
+        <button class="nav-link" onclick="window.location.href='dashboard.html'">
+            <i>🏠</i><span>Beranda</span>
+        </button>
+        <button class="nav-link" onclick="window.location.href='visualisasikalender.html'">
+            <i>📅</i><span>Kalender</span>
+        </button>
+        <button class="nav-link" onclick="window.location.href='skrininganemia.html'">
+            <i>⚖️</i><span>Skrining</span>
+        </button>
+        <button class="nav-link" onclick="window.location.href='fiqhistigadah.html'">
+            <i>📖</i><span>Panduan</span>
+        </button>
+        <button class="nav-link active" onclick="window.location.href='profil.html'">
+            <i>👤</i><span>Profil</span>
+        </button>
+    </nav>
+</div>
+
+</body>
+</html>
