@@ -6,93 +6,54 @@
     <title>HAYYA - Data Laboratorium</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
-            --white: #ffffff;
-            --text-dark: #2D3436;
-            --text-muted: #636E72;
-            --soft-bg: #F8F9FD;
-            --accent: #6C5CE7;
-            --shadow: 0 10px 30px rgba(108, 92, 231, 0.08);
-        }
-
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        :root { --primary: #0984E3; --white: #ffffff; --text-dark: #2D3436; --soft-bg: #F8F9FD; --danger: #993C1D; }
+        * { box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: #DFE6E9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-
-        .phone-frame {
-            width: 375px; height: 780px;
-            background-color: var(--soft-bg);
-            border: 10px solid #2D3436;
-            border-radius: 45px;
-            position: relative; overflow: hidden;
-            display: flex; flex-direction: column;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-        }
-
+        .phone-frame { width: 375px; height: 780px; background-color: var(--soft-bg); border: 10px solid #2D3436; border-radius: 45px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
         .header { padding: 55px 25px 20px; background: var(--white); display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #F1F2F6; }
-        .header h2 { font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0; letter-spacing: 0.5px; }
-        .back-btn { font-size: 20px; cursor: pointer; color: var(--text-dark); text-decoration: none; padding: 5px; }
-
-        .content { padding: 25px; flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
-        .instruction-card { background: #EEF2FF; border-radius: 20px; padding: 15px 20px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 25px; border: 1px solid #E0E7FF; }
-        .instruction-card p { font-size: 11px; color: #4338CA; line-height: 1.5; margin: 0; font-weight: 600; }
-
+        .header h2 { font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0; text-transform: uppercase; }
+        .back-btn { font-size: 20px; cursor: pointer; color: var(--text-dark); }
+        .content { padding: 25px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+        .info-card { background: #EEF2FF; border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #E0E7FF; font-size: 11px; color: #4338CA; font-weight: 600; }
         .form-group { margin-bottom: 20px; }
-        label { display: block; font-size: 11px; font-weight: 800; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .input-container { position: relative; display: flex; align-items: center; }
-        input { width: 100%; padding: 16px 20px; border-radius: 18px; border: 2px solid #F1F2F6; background: var(--white); font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-dark); transition: 0.3s; }
-        input:focus { outline: none; border-color: var(--accent); }
-
-        .unit-badge { position: absolute; right: 15px; background: #F1F2F6; padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 800; color: var(--text-muted); }
-
-        .btn-save { margin-top: auto; width: 100%; padding: 20px; border-radius: 22px; border: none; background: #0984E3; color: white; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 20px rgba(9, 132, 227, 0.2); }
+        label { display: block; font-size: 11px; font-weight: 800; color: #636E72; margin-bottom: 8px; text-transform: uppercase; }
+        input { width: 100%; padding: 16px 20px; border-radius: 18px; border: 2px solid #F1F2F6; font-size: 16px; font-weight: 700; }
+        .btn-save { margin-top: auto; width: 100%; padding: 20px; border-radius: 22px; border: none; background: var(--primary); color: white; font-size: 15px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
 <div class="phone-frame">
-    <div class="header">
-        <div class="back-btn" onclick="window.location.href='detailars.html'">❮</div>
-        <h2>DATA LABORATORIUM</h2>
-    </div>
+    <div class="header"><div class="back-btn" onclick="window.location.href='detailars.html'">❮</div><h2>Input Hasil Lab</h2></div>
     <div class="content">
-        <div class="instruction-card">
-            <span>🔬</span>
-            <p>Masukkan hasil kadar Hemoglobin (Hb) terbaru untuk memperbarui skor risiko anemia (ARS) Anda secara otomatis.</p>
-        </div>
+        <div class="info-card">Masukkan kadar Hemoglobin (Hb) Anda untuk memperbarui skor risiko anemia secara otomatis.</div>
         <div class="form-group">
-            <label>Kadar Hemoglobin</label>
-            <div class="input-container">
-                <input type="number" step="0.1" id="hbValue" placeholder="Contoh: 11.5">
-                <span class="unit-badge">g/dL</span>
-            </div>
+            <label>Kadar Hemoglobin (g/dL)</label>
+            <input type="number" step="0.1" id="hbValue" placeholder="Contoh: 12.5">
         </div>
         <div class="form-group">
             <label>Tanggal Pemeriksaan</label>
             <input type="date" id="checkDate">
         </div>
-        <button class="btn-save" onclick="saveData()">SIMPAN DATA LAB</button>
+        <button class="btn-save" onclick="saveData()">SIMPAN DATA & UPDATE ARS</button>
     </div>
 </div>
-
 <script>
     document.getElementById('checkDate').valueAsDate = new Date();
 
     function saveData() {
         const hb = document.getElementById('hbValue').value;
         const date = document.getElementById('checkDate').value;
-
-        if(!hb) {
-            alert('Masukkan kadar Hb!');
-            return;
-        }
-
-        // Simpan ke localStorage sesuai Revisi 7
+        
+        if(!hb || hb <= 0) { alert('Masukkan kadar Hb yang valid!'); return; }
+        
+        // Simpan data
         localStorage.setItem('hayya_last_hb', hb);
         localStorage.setItem('hayya_last_hb_date', date);
-
-        alert('Data berhasil disimpan! Skor ARS sedang diperbarui.');
-        window.location.href = 'detailars.html';
+        
+        alert('✅ Data berhasil disimpan!');
+        
+        // Navigasi paksa ke halaman detail
+        window.location.replace('detailars.html');
     }
 </script>
 </body>
