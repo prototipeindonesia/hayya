@@ -7,89 +7,114 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --danger: #FF7675; --warning: #FDCB6E; --success: #00B894;
-            --white: #ffffff; --text-dark: #2D3436; --text-muted: #636E72;
-            --soft-bg: #F8F9FD; --shadow: 0 10px 30px rgba(108, 92, 231, 0.1);
+            --ars-rendah: #4A9B7F; --ars-sedang: #E8975A; --ars-tinggi: #B5768C; --ars-kritis: #993C1D;
+            --white: #ffffff; --text-dark: #2D3436; --text-muted: #636E72; --soft-bg: #F8F9FD;
         }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', sans-serif; background-color: #DFE6E9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-
         .phone-frame { width: 375px; height: 780px; background-color: var(--soft-bg); border: 10px solid #2D3436; border-radius: 45px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
         .header { padding: 55px 25px 20px; background: var(--white); display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #F1F2F6; }
-        .content { padding: 25px; flex: 1; overflow-y: auto; }
-
-        .gauge-section { background: var(--white); border-radius: 32px; padding: 30px 20px; text-align: center; box-shadow: var(--shadow); margin-bottom: 25px; }
-        .gauge-wrapper { position: relative; width: 200px; height: 100px; margin: 0 auto 15px; background: #F1F2F6; border-radius: 100px 100px 0 0; overflow: hidden; }
-        .gauge-color { position: absolute; width: 100%; height: 100%; background: conic-gradient(from 0deg at 50% 100%, var(--success) 0deg 60deg, var(--warning) 60deg 120deg, var(--danger) 120deg 180deg); transform: rotate(-90deg); }
-        .gauge-inner { position: absolute; width: 140px; height: 70px; background: var(--white); bottom: 0; left: 30px; border-radius: 70px 70px 0 0; }
-        .needle { position: absolute; width: 70px; height: 4px; background: #2D3436; bottom: 0; left: 50%; transform-origin: left center; transition: 1.5s; transform: rotate(-180deg); }
-
-        .var-card { background: var(--white); border-radius: 20px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-left: 5px solid #F1F2F6; }
-        .at-risk { border-left-color: var(--danger); }
-        .status-badge { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 10px; background: #F1F2F6; }
-        .badge-danger { background: var(--danger); color: white; }
-
-        .btn-lab { width: 100%; padding: 18px; border-radius: 20px; border: none; background: #0984E3; color: white; font-weight: 700; cursor: pointer; }
+        .header h2 { font-size: 14px; font-weight: 800; color: var(--text-dark); margin: 0; text-transform: uppercase; }
+        .back-btn { cursor: pointer; font-size: 18px; }
+        .content { padding: 20px; flex: 1; overflow-y: auto; padding-bottom: 40px; }
+        .gauge-section { background: var(--white); border-radius: 32px; padding: 25px 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .gauge-wrapper { position: relative; width: 220px; height: 110px; margin: 0 auto 10px; background: #F1F2F6; border-radius: 110px 110px 0 0; overflow: hidden; }
+        .gauge-color { position: absolute; width: 100%; height: 100%; background: conic-gradient(from 0deg at 50% 100%, var(--ars-rendah) 0deg 54deg, var(--ars-sedang) 54deg 108deg, var(--ars-tinggi) 108deg 144deg, var(--ars-kritis) 144deg 180deg); transform: rotate(-90deg); }
+        .gauge-inner { position: absolute; width: 160px; height: 80px; background: var(--white); bottom: 0; left: 30px; border-radius: 80px 80px 0 0; }
+        .needle { position: absolute; width: 85px; height: 4px; background: #2D3436; bottom: 0; left: 50%; transform-origin: left center; transition: 1.5s; transform: rotate(-180deg); z-index: 5; border-radius: 4px; }
+        .total-score { font-size: 48px; font-weight: 800; margin: 0; color: var(--text-dark); }
+        .risk-label { font-size: 14px; font-weight: 800; padding: 6px 16px; border-radius: 10px; color: white; display: inline-block; margin-top: 5px; }
+        .var-card { background: var(--white); border-radius: 20px; padding: 15px 18px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-left: 5px solid #F1F2F6; }
+        .var-info .name { font-weight: 700; font-size: 13px; color: var(--text-dark); display: block; }
+        .status-badge { font-size: 10px; font-weight: 800; padding: 6px 12px; border-radius: 10px; background: #F1F2F6; min-width: 65px; text-align: center; }
+        .btn-lab { width: 100%; padding: 18px; border-radius: 20px; border: none; background: #0984E3; color: white; font-weight: 700; cursor: pointer; margin-top: 20px; }
+        .btn-referral { background: var(--ars-kritis); color: white; width: 100%; padding: 18px; border-radius: 20px; border: none; font-weight: 700; display: none; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 <div class="phone-frame">
-    <div class="header"><div class="back-btn" onclick="window.location.href='dashboard.html'">❮</div><h2>Detail ARS</h2></div>
+    <div class="header"><div class="back-btn" onclick="window.location.href='dashboard.html'">❮</div><h2>Analisis Risiko Anemia</h2></div>
     <div class="content">
         <div class="gauge-section">
-            <div class="gauge-wrapper">
-                <div class="gauge-color"></div>
-                <div class="gauge-inner"></div>
-                <div id="needle" class="needle"></div>
-            </div>
-            <h1 id="totalScore">0</h1>
-            <p id="riskText">Menghitung...</p>
+            <div class="gauge-wrapper"><div class="gauge-color"></div><div class="gauge-inner"></div><div id="needle" class="needle"></div></div>
+            <h1 class="total-score" id="totalScore">--</h1>
+            <span class="risk-label" id="riskText">MEMPROSES...</span>
         </div>
-
-        <div class="var-card" id="hbCard">
-            <div><span style="font-weight:700; font-size:13px; display:block;">Kadar Hb Terakhir</span><small id="hbDate">Data belum ada</small></div>
-            <div class="status-badge" id="hbValue">-- g/dL</div>
-        </div>
-
+        <div class="var-card" id="hbCard"><div class="var-info"><span class="name">Hasil Hb (35%)</span><small id="hbDate">Data Lab</small></div><div class="status-badge" id="hbValue">--</div></div>
+        <div class="var-card" id="ttdCard"><div class="var-info"><span class="name">Kepatuhan TTD (25%)</span></div><div class="status-badge" id="ttdValue">--</div></div>
+        <div class="var-card" id="haidCard"><div class="var-info"><span class="name">Pola Haid (20%)</span></div><div class="status-badge" id="haidValue">--</div></div>
+        <div class="var-card" id="gejalaCard"><div class="var-info"><span class="name">Gejala Klinis (12%)</span></div><div class="status-badge" id="gejalaValue">--</div></div>
+        <div class="var-card" id="feCard"><div class="var-info"><span class="name">Konsumsi Fe (8%)</span></div><div class="status-badge" id="feValue">--</div></div>
+        <button id="referralBtn" class="btn-referral">⚡ AKTIFKAN E-REFERRAL</button>
         <button class="btn-lab" onclick="window.location.href='hasillabab.html'">🧪 UPDATE HASIL LAB</button>
     </div>
 </div>
-
 <script>
     window.onload = function() {
+        // Ambil data terbaru
         const lastHb = parseFloat(localStorage.getItem('hayya_last_hb')) || 0;
-        const lastDate = localStorage.getItem('hayya_last_hb_date') || "Belum ada data";
+        const lastHbDate = localStorage.getItem('hayya_last_hb_date') || "Belum diinput";
+        const ttdPercent = parseInt(localStorage.getItem('hayya_ttd_percent')) || 0;
+        const durasiHaid = parseInt(localStorage.getItem('hayya_durasi_haid')) || 0;
+        const jmlGejala = parseInt(localStorage.getItem('hayya_jml_gejala')) || 0;
+        const frekMakanFe = parseInt(localStorage.getItem('hayya_frek_fe')) || 0;
 
-        // Skor Berdasarkan Kriteria Revisi (Bobot 35%)
-        let hbScore = 50; 
-        if (lastHb >= 12) hbScore = 100;
-        else if (lastHb >= 11) hbScore = 75;
-        else if (lastHb >= 10) hbScore = 50;
-        else if (lastHb >= 8) hbScore = 25;
-        else if (lastHb > 0) hbScore = 0;
-
-        // Simulasi variabel lain (Misal: TTD=50, Haid=80)
-        const totalARS = Math.round((hbScore * 0.35) + (50 * 0.25) + (80 * 0.20) + (100 * 0.20));
-
-        // Update UI
-        document.getElementById('totalScore').innerText = totalARS;
-        document.getElementById('hbValue').innerText = lastHb > 0 ? lastHb + " g/dL" : "BELUM ADA";
-        document.getElementById('hbDate').innerText = lastDate;
-
-        const riskText = document.getElementById('riskText');
-        if (totalARS >= 70) { riskText.innerText = "⚠️ RISIKO TINGGI"; riskText.style.color = "#FF7675"; }
-        else if (totalARS >= 40) { riskText.innerText = "🟡 RISIKO SEDANG"; riskText.style.color = "#FDCB6E"; }
-        else { riskText.innerText = "✅ RISIKO RENDAH"; riskText.style.color = "#00B894"; }
-
-        if (lastHb > 0 && lastHb < 12) {
-            document.getElementById('hbCard').classList.add('at-risk');
-            document.getElementById('hbValue').classList.add('badge-danger');
+        // 1. Logika Skor Hb (35%) - SESUAI REVISI
+        let hbScore = 50; // Default jika 0
+        if (lastHb > 0) {
+            if (lastHb >= 12) hbScore = 100;
+            else if (lastHb >= 11) hbScore = 75;
+            else if (lastHb >= 10) hbScore = 50;
+            else if (lastHb >= 8) hbScore = 25;
+            else hbScore = 0;
         }
 
-        // Gerakkan Jarum (-180deg ke 0deg)
+        // 2. Logika Skor Variabel Lain
+        let ttdScore = ttdPercent >= 80 ? 100 : (ttdPercent >= 60 ? 75 : (ttdPercent >= 40 ? 50 : (ttdPercent >= 20 ? 25 : 0)));
+        let haidScore = (durasiHaid > 0 && durasiHaid <= 5) ? 100 : (durasiHaid <= 7 ? 80 : (durasiHaid <= 10 ? 50 : (durasiHaid <= 14 ? 25 : 0)));
+        let gejalaScore = Math.max(0, 100 - (jmlGejala * 25));
+        let feScore = frekMakanFe >= 5 ? 100 : (frekMakanFe >= 3 ? 75 : (frekMakanFe === 2 ? 50 : (frekMakanFe === 1 ? 25 : 0)));
+
+        // Kalkulasi Total ARS
+        const totalARS = Math.round((hbScore * 0.35) + (ttdScore * 0.25) + (haidScore * 0.20) + (gejalaScore * 0.12) + (feScore * 0.08));
+        
+        // Update Tampilan Utama
+        document.getElementById('totalScore').innerText = totalARS;
+        const riskLabel = document.getElementById('riskText');
+        const refBtn = document.getElementById('referralBtn');
+
+        if (totalARS >= 70) { 
+            riskLabel.innerText = "RISIKO RENDAH"; 
+            riskLabel.style.backgroundColor = "var(--ars-rendah)"; 
+        } else if (totalARS >= 50) { 
+            riskLabel.innerText = "RISIKO SEDANG"; 
+            riskLabel.style.backgroundColor = "var(--ars-sedang)"; 
+        } else if (totalARS >= 30) { 
+            riskLabel.innerText = "RISIKO TINGGI"; 
+            riskLabel.style.backgroundColor = "var(--ars-tinggi)"; 
+        } else { 
+            riskLabel.innerText = "KRITIS"; 
+            riskLabel.style.backgroundColor = "var(--ars-kritis)"; 
+            refBtn.style.display = 'block'; 
+        }
+
+        // Sinkronisasi List Detail
+        updateUI('hb', lastHb > 0 ? lastHb + ' g/dL' : 'N/A', hbScore);
+        document.getElementById('hbDate').innerText = lastHbDate;
+        updateUI('ttd', ttdPercent + '%', ttdScore);
+        updateUI('haid', (durasiHaid || 0) + ' hari', haidScore);
+        updateUI('gejala', jmlGejala + ' gejala', gejalaScore);
+        updateUI('fe', frekMakanFe + 'x/mgg', feScore);
+        
+        // Gerakkan Jarum
         const rotation = -180 + (totalARS * 1.8);
         setTimeout(() => { document.getElementById('needle').style.transform = `rotate(${rotation}deg)`; }, 300);
     };
+
+    function updateUI(id, val, score) {
+        document.getElementById(id + 'Value').innerText = val;
+        document.getElementById(id + 'Card').style.borderLeftColor = score >= 75 ? "var(--ars-rendah)" : (score >= 50 ? "var(--ars-sedang)" : "var(--ars-kritis)");
+    }
 </script>
 </body>
 </html>
