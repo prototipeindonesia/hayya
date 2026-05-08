@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAYYA - Input Pemeriksaan ANC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pregnancy-main: #FF7675;
+            --pregnancy-soft: #FFF5F5;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --white: #ffffff;
+            --success: #4A9B7F;
+            --danger: #993C1D;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; background-color: #DFE6E9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+
+        .phone-frame {
+            width: 375px; height: 780px;
+            background-color: #F8F9FD;
+            border: 10px solid #2D3436;
+            border-radius: 45px;
+            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+        }
+
+        .header { padding: 55px 25px 20px; background: var(--white); border-bottom: 1px solid #F1F2F6; display: flex; align-items: center; gap: 15px; }
+        .btn-back { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-dark); }
+        h2 { font-size: 18px; margin: 0; font-weight: 800; }
+
+        .content { padding: 25px; flex: 1; overflow-y: auto; }
+
+        .form-card { background: var(--white); border-radius: 24px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); margin-bottom: 20px; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 11px; font-weight: 800; color: var(--pregnancy-main); margin-bottom: 8px; letter-spacing: 0.5px; }
+        input, select { width: 100%; padding: 14px; border: 1.5px solid #F1F2F6; border-radius: 12px; font-size: 15px; outline: none; font-family: inherit; }
+        input:focus { border-color: var(--pregnancy-main); }
+
+        .info-panel { background: #F1F2F6; border-radius: 16px; padding: 15px; margin-top: 10px; display: none; }
+        .info-panel.show { display: block; animation: fadeIn 0.3s; }
+        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; color: white; margin-bottom: 8px; }
+
+        .btn-save { background: var(--pregnancy-main); color: white; border: none; width: 100%; padding: 18px; border-radius: 18px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 10px; box-shadow: 0 8px 16px rgba(255, 118, 117, 0.2); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .disclaimer { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 20px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+<div class="phone-frame">
+    <div class="header">
+        <button class="btn-back" onclick="location.href='dashboardhamil.html'">✕</button>
+        <h2>Input Hasil ANC</h2>
+    </div>
+
+    <div class="content">
+        <div class="form-card">
+            <div class="input-group">
+                <label>TANGGAL PEMERIKSAAN</label>
+                <input type="date" id="ancDate">
+            </div>
+
+            <div class="input-group">
+                <label>TRIMESTER SAAT INI</label>
+                <select id="trimester">
+                    <option value="1">Trimester I (Minggu 1-12)</option>
+                    <option value="2">Trimester II (Minggu 13-27)</option>
+                    <option value="3">Trimester III (Minggu 28-40)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>KADAR HEMOGLOBIN (Hb) - g/dL</label>
+                <input type="number" step="0.1" id="hbValue" placeholder="Contoh: 11.5" oninput="validateHb()">
+            </div>
+
+            <div id="resultPanel" class="info-panel">
+                <div id="statusBadge" class="status-badge">MEMUAT...</div>
+                <p id="statusMsg" style="font-size: 12px; margin: 0; line-height: 1.4;"></p>
+            </div>
+        </div>
+
+        <button class="btn-save" onclick="saveANC()">Simpan Data Pemeriksaan</button>
+        
+        <p class="disclaimer">
+            "Nilai ini bersumber dari pemeriksaan laboratorium resmi. Masukkan hasil sesuai yang tertera di lembar hasil lab Anda."
+        </p>
+    </div>
+</div>
+
+<script>
+    // Validasi Hb Real-time dengan Klasifikasi Khusus Ibu Hamil (Revisi 4 & 38)
+    function validateHb() {
+        const hb = parseFloat(document.getElementById('hbValue').value);
+        const tri = parseInt(document.getElementById('trimester').value);
+        const panel = document.getElementById('resultPanel');
+        const badge = document.getElementById('statusBadge');
+        const msg = document.getElementById('statusMsg');
+
+        if (!hb) {
+            panel.classList.remove('show');
+            return;
+        }
+
+        panel.classList.add('show');
+        let status = "";
+        let color = "";
+        let description = "";
+
+        // Logika ambang batas Hb berbeda per trimester untuk ibu hamil (Naegele/Kemenkes)
+        if ((tri === 1 || tri === 3) && hb >= 11) {
+            status = "NORMAL";
+            color = "#4A9B7F";
+            description = "Kadar Hb Anda baik untuk periode Trimester I/III.";
+        } else if (tri === 2 && hb >= 10.5) {
+            status = "NORMAL";
+            color = "#4A9B7F";
+            description = "Kadar Hb normal untuk Trimester II (ekspansi volume darah).";
+        } else {
+            // Jika di bawah standar, masuk kategori Anemia Gestasional
+            status = "ANEMIA GESTASIONAL";
+            color = "#993C1D";
+            description = "Kadar Hb di bawah standar bumil. Data akan masuk perhitungan ARS.";
+        }
+
+        badge.innerText = status;
+        badge.style.backgroundColor = color;
+        msg.innerText = description;
+    }
+
+    // Fungsi Simpan dengan Sinkronisasi Data (Revisi 7)
+    function saveANC() {
+        const hb = parseFloat(document.getElementById('hbValue').value);
+        const tri = parseInt(document.getElementById('trimester').value);
+        const date = document.getElementById('ancDate').value;
+
+        if (!hb || !date) {
+            alert("Mohon lengkapi semua data pemeriksaan.");
+            return;
+        }
+
+        // Tentukan status untuk sinkronisasi tampilan dashboard
+        const isNormal = ( (tri === 1 || tri === 3) && hb >= 11 ) || ( tri === 2 && hb >= 10.5 );
+        const statusAnemia = isNormal ? "Normal" : "Anemia Gestasional";
+
+        const latestANC = {
+            hb: hb,
+            trimester: tri,
+            date: date,
+            statusAnemia: statusAnemia,
+            timestamp: new Date().toISOString()
+        };
+
+        // 1. Simpan sebagai data terbaru untuk sinkronisasi dashboard (Revisi 7)
+        localStorage.setItem('hayya_latest_anc', JSON.stringify(latestANC));
+
+        // 2. Update field Hb terakhir di profil global pengguna
+        localStorage.setItem('hayya_last_hb', hb);
+
+        // 3. Simpan ke dalam riwayat pemeriksaan (Revisi 15)
+        let history = JSON.parse(localStorage.getItem('hayya_anc_history') || "[]");
+        history.unshift(latestANC);
+        localStorage.setItem('hayya_anc_history', JSON.stringify(history));
+
+        alert("✅ Data ANC Berhasil Disimpan dan Disinkronkan");
+        location.href = 'dashboardhamil.html';
+    }
+
+    // Set default tanggal hari ini saat halaman dimuat
+    document.getElementById('ancDate').valueAsDate = new Date();
+</script>
+
+</body>
+</html>
