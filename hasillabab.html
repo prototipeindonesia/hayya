@@ -17,13 +17,7 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #DFE6E9;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #DFE6E9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
 
         .phone-frame {
             width: 375px; height: 780px;
@@ -35,137 +29,71 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
 
-        .header {
-            padding: 55px 25px 20px;
-            background: var(--white);
-            display: flex; align-items: center;
-            gap: 15px; border-bottom: 1px solid #F1F2F6;
-        }
+        .header { padding: 55px 25px 20px; background: var(--white); display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #F1F2F6; }
         .header h2 { font-size: 15px; font-weight: 800; color: var(--text-dark); margin: 0; letter-spacing: 0.5px; }
         .back-btn { font-size: 20px; cursor: pointer; color: var(--text-dark); text-decoration: none; padding: 5px; }
 
         .content { padding: 25px; flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
-
-        .instruction-card {
-            background: #EEF2FF; border-radius: 20px; padding: 15px 20px;
-            display: flex; gap: 12px; align-items: flex-start; margin-bottom: 25px;
-            border: 1px solid #E0E7FF;
-        }
-        .instruction-card span { font-size: 20px; }
+        .instruction-card { background: #EEF2FF; border-radius: 20px; padding: 15px 20px; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 25px; border: 1px solid #E0E7FF; }
         .instruction-card p { font-size: 11px; color: #4338CA; line-height: 1.5; margin: 0; font-weight: 600; }
 
         .form-group { margin-bottom: 20px; }
         label { display: block; font-size: 11px; font-weight: 800; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
 
         .input-container { position: relative; display: flex; align-items: center; }
-        
-        input[type="number"], input[type="date"] {
-            width: 100%; padding: 16px 20px; border-radius: 18px;
-            border: 2px solid #F1F2F6; background: var(--white);
-            font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
-            color: var(--text-dark); transition: 0.3s;
-        }
-        input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1); }
+        input { width: 100%; padding: 16px 20px; border-radius: 18px; border: 2px solid #F1F2F6; background: var(--white); font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: var(--text-dark); transition: 0.3s; }
+        input:focus { outline: none; border-color: var(--accent); }
 
-        .unit-badge {
-            position: absolute; right: 15px; background: #F1F2F6;
-            padding: 6px 12px; border-radius: 10px; font-size: 11px;
-            font-weight: 800; color: var(--text-muted);
-        }
+        .unit-badge { position: absolute; right: 15px; background: #F1F2F6; padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 800; color: var(--text-muted); }
 
-        .info-panel {
-            margin-top: 5px; padding: 18px; border-radius: 24px;
-            background: var(--white); box-shadow: var(--shadow);
-            margin-bottom: 15px;
-        }
-        .info-panel h4 { font-size: 12px; font-weight: 800; margin: 0 0 6px; color: var(--text-dark); }
-        .info-panel p { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin: 0; }
-
-        /* Button Style Tren */
-        .btn-trend {
-            width: 100%; padding: 15px; border-radius: 18px;
-            background: #F3F0FF; color: var(--accent);
-            border: 1.5px dashed var(--accent); font-size: 13px;
-            font-weight: 700; cursor: pointer; transition: 0.3s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            margin-bottom: 20px;
-        }
-        .btn-trend:active { background: #EBE4FF; transform: translateY(2px); }
-
-        .btn-save {
-            margin-top: auto; width: 100%; padding: 20px;
-            border-radius: 22px; border: none; background: #0984E3;
-            color: white; font-size: 15px; font-weight: 700;
-            cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(9, 132, 227, 0.2);
-        }
-        .btn-save:active { transform: scale(0.98); }
-
-        .disclaimer { font-size: 10px; color: var(--text-muted); text-align: center; margin-top: 15px; font-style: italic; }
+        .btn-save { margin-top: auto; width: 100%; padding: 20px; border-radius: 22px; border: none; background: #0984E3; color: white; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 10px 20px rgba(9, 132, 227, 0.2); }
     </style>
 </head>
 <body>
-
 <div class="phone-frame">
     <div class="header">
         <div class="back-btn" onclick="window.location.href='detailars.html'">❮</div>
         <h2>DATA LABORATORIUM</h2>
     </div>
-
     <div class="content">
         <div class="instruction-card">
             <span>🔬</span>
-            <p>Masukkan hasil kadar Hemoglobin (Hb) terbaru dari Puskesmas atau Lab terdekat untuk akurasi skor ARS.</p>
+            <p>Masukkan hasil kadar Hemoglobin (Hb) terbaru untuk memperbarui skor risiko anemia (ARS) Anda secara otomatis.</p>
         </div>
-
         <div class="form-group">
             <label>Kadar Hemoglobin</label>
             <div class="input-container">
-                <input type="number" step="0.1" placeholder="Misal: 11.5" id="hbValue">
+                <input type="number" step="0.1" id="hbValue" placeholder="Contoh: 11.5">
                 <span class="unit-badge">g/dL</span>
             </div>
         </div>
-
         <div class="form-group">
             <label>Tanggal Pemeriksaan</label>
-            <div class="input-container">
-                <input type="date" id="checkDate">
-            </div>
+            <input type="date" id="checkDate">
         </div>
-
-        <div class="info-panel">
-            <h4>Pentingnya Data Hb</h4>
-            <p>Data lab memberikan akurasi terbesar pada sistem HAYYA untuk memperbarui <b>Anemia Risk Score (ARS)</b> secara instan.</p>
-        </div>
-
-        <button class="btn-trend" onclick="window.location.href='monitoringtren.html'">
-            📊 LIHAT TREN HEMOGLOBIN
-        </button>
-
-        <button class="btn-save" onclick="saveData()">
-            SIMPAN DATA LAB
-        </button>
-
-        <p class="disclaimer">
-            Informasi ini digunakan secara terbatas untuk kepentingan analisis kesehatan mandiri di aplikasi HAYYA.
-        </p>
+        <button class="btn-save" onclick="saveData()">SIMPAN DATA LAB</button>
     </div>
 </div>
 
 <script>
-    // Set default tanggal hari ini (2026-05-03)
     document.getElementById('checkDate').valueAsDate = new Date();
 
     function saveData() {
         const hb = document.getElementById('hbValue').value;
+        const date = document.getElementById('checkDate').value;
+
         if(!hb) {
-            alert('Silakan masukkan kadar Hb terlebih dahulu.');
+            alert('Masukkan kadar Hb!');
             return;
         }
-        
-        alert('Data Hb (' + hb + ' g/dL) berhasil disimpan! Skor ARS Anda sedang diperbarui.');
+
+        // Simpan ke localStorage sesuai Revisi 7
+        localStorage.setItem('hayya_last_hb', hb);
+        localStorage.setItem('hayya_last_hb_date', date);
+
+        alert('Data berhasil disimpan! Skor ARS sedang diperbarui.');
         window.location.href = 'detailars.html';
     }
 </script>
-
 </body>
 </html>
