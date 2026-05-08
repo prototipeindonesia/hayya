@@ -18,13 +18,7 @@
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #DFE6E9;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #DFE6E9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
 
         .phone-frame {
             width: 375px; height: 780px;
@@ -36,83 +30,36 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
 
-        /* Top Bar */
-        .top-bar {
-            padding: 55px 25px 15px;
-            background: var(--white);
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid #F1F2F6;
-        }
+        .top-bar { padding: 55px 25px 15px; background: var(--white); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #F1F2F6; }
         .logo { font-weight: 800; font-size: 18px; color: var(--pregnancy-main); letter-spacing: -0.5px; }
-        .mode-badge {
-            background: var(--pregnancy-soft); color: var(--pregnancy-main);
-            padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800;
-        }
+        .mode-badge { background: var(--pregnancy-soft); color: var(--pregnancy-main); padding: 6px 12px; border-radius: 12px; font-size: 10px; font-weight: 800; }
 
         .content { padding: 0 20px 20px; flex: 1; overflow-y: auto; }
 
-        /* Back to Main Dashboard Button */
-        .btn-back-main {
-            margin: 15px 0;
-            width: 100%;
-            padding: 12px;
-            background: var(--white);
-            border: 1.5px solid #F1F2F6;
-            border-radius: 16px;
-            color: var(--text-dark);
-            font-size: 12px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .btn-back-main:active { background: #F1F2F6; transform: translateY(1px); }
+        .btn-back-main { margin: 15px 0; width: 100%; padding: 12px; background: var(--white); border: 1.5px solid #F1F2F6; border-radius: 16px; color: var(--text-dark); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.3s; }
 
-        /* Hero Pregnancy */
-        .hero-card {
-            background: var(--white); border-radius: 30px; padding: 25px;
-            text-align: center; box-shadow: var(--shadow); margin-bottom: 20px;
-            border: 1px solid rgba(255, 118, 117, 0.1);
-        }
+        .hero-card { background: var(--white); border-radius: 30px; padding: 25px; text-align: center; box-shadow: var(--shadow); margin-bottom: 20px; border: 1px solid rgba(255, 118, 117, 0.1); }
         .hero-card h4 { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin: 0 0 10px; letter-spacing: 1px; }
-        .week-display { font-size: 32px; font-weight: 800; color: var(--text-dark); display: block; margin-bottom: 5px; cursor: pointer; }
-        .trimester-tag {
-            display: inline-block; background: var(--text-dark); color: white;
-            padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 700;
-        }
+        .week-display { font-size: 28px; font-weight: 800; color: var(--text-dark); display: block; margin-bottom: 5px; }
+        .trimester-tag { display: inline-block; background: var(--text-dark); color: white; padding: 4px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; }
 
-        /* Progress Tracker */
         .progress-box { margin: 20px 0 10px; }
         .bar-bg { width: 100%; height: 10px; background: #F1F2F6; border-radius: 10px; overflow: hidden; }
-        .bar-fill { width: 12%; height: 100%; background: var(--pregnancy-grad); border-radius: 10px; }
+        .bar-fill { width: 0%; height: 100%; background: var(--pregnancy-grad); border-radius: 10px; transition: 0.5s; }
         .dates-info { display: flex; justify-content: space-between; margin-top: 8px; font-size: 10px; color: var(--text-muted); font-weight: 600; }
 
-        /* ANC Schedule Card */
-        .anc-card {
-            background: #6C5CE7; border-radius: 24px; padding: 20px;
-            color: white; margin-bottom: 20px; position: relative; overflow: hidden;
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
-        }
-        .anc-card::after {
-            content: "📅"; position: absolute; right: -10px; bottom: -10px;
-            font-size: 80px; opacity: 0.15; transform: rotate(-15deg);
-        }
-        .anc-tag { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 6px; font-size: 9px; font-weight: 700; }
-        .anc-title { font-size: 14px; font-weight: 800; margin: 12px 0 6px; display: block; }
-        .anc-desc { font-size: 12px; opacity: 0.9; line-height: 1.4; display: block; }
+        /* Status Card dari Input ANC */
+        .status-card { background: var(--white); border-radius: 24px; padding: 15px; margin-bottom: 20px; border-left: 5px solid var(--pregnancy-main); box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: none; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; color: white; margin-top: 5px; }
 
-        /* Quick Action Grid */
+        .anc-card { background: #6C5CE7; border-radius: 24px; padding: 20px; color: white; margin-bottom: 20px; position: relative; overflow: hidden; }
+        .anc-tag { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 6px; font-size: 9px; font-weight: 700; }
+        .anc-title { font-size: 14px; font-weight: 800; margin: 12px 0 6px; display: block; position: relative; z-index: 2; }
+        .anc-desc { font-size: 12px; opacity: 0.9; line-height: 1.4; display: block; position: relative; z-index: 2; }
+
         .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .action-btn {
-            background: var(--white); padding: 20px 15px; border-radius: 24px;
-            text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border: 1.5px solid transparent; transition: 0.3s; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-        }
-        .action-btn:active { transform: scale(0.95); border-color: var(--pregnancy-main); background: var(--pregnancy-soft); }
+        .action-btn { background: var(--white); padding: 20px 15px; border-radius: 24px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 1.5px solid transparent; transition: 0.3s; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .action-btn:active { transform: scale(0.95); background: var(--pregnancy-soft); }
         .action-btn .icon { font-size: 24px; }
         .action-btn .label { font-size: 11px; font-weight: 800; color: var(--text-dark); line-height: 1.2; }
 
@@ -128,57 +75,141 @@
     </div>
 
     <div class="content">
-        <div class="btn-back-main" onclick="window.location.href='dashboard.html'">
-            <span>⬅</span> Kembali ke Beranda Utama
+        <div class="btn-back-main" onclick="location.href='dashboard.html'">
+            <span>⬅</span> Beranda Utama
         </div>
 
         <div class="hero-card">
             <h4>Usia Kandungan</h4>
-            <span class="week-display" onclick="window.location.href='verifikasihpl.html'">4 Minggu 2 Hari</span>
-            <div class="trimester-tag">TRIMESTER 1</div>
+            <span class="week-display" id="weekText">Memuat...</span>
+            <div class="trimester-tag" id="trimesterTag">-</div>
             
             <div class="progress-box">
-                <div class="bar-bg">
-                    <div class="bar-fill"></div>
-                </div>
+                <div class="bar-bg"><div class="bar-fill" id="progressBar"></div></div>
                 <div class="dates-info">
-                    <span>HPHT: 05/04/26</span>
-                    <span>HPL: 10/01/27</span>
+                    <span>HPHT: <b id="hphtDate">-</b></span>
+                    <span>HPL: <b id="hplDate">-</b></span>
                 </div>
             </div>
-            <p style="font-size: 10px; color: var(--pregnancy-main); margin-top: 10px; font-weight: 700;">Tap usia untuk update HPL ✎</p>
+            <p style="font-size: 10px; color: var(--pregnancy-main); margin-top: 10px; font-weight: 700; cursor: pointer;" onclick="updateHPHT()">✎ Ubah Data HPHT</p>
         </div>
 
-        <div class="anc-card">
-            <span class="anc-tag">PENTING: JADWAL ANC</span>
-            <span class="anc-title">Kunjungan Pertama (K1)</span>
-            <span class="anc-desc">Lakukan sebelum minggu ke-12 untuk skrining awal anemia dan kesehatan janin.</span>
+        <div id="latestAncCard" class="status-card">
+            <h4 style="font-size: 10px; color: var(--text-muted); margin: 0; text-transform: uppercase;">Hasil Lab Terakhir</h4>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <span id="displayHb" style="font-size: 20px; font-weight: 800; color: var(--text-dark);">0 g/dL</span>
+                <span id="displayStatus" class="status-badge">-</span>
+            </div>
+            <p id="displayDate" style="font-size: 9px; color: #B2BEC3; margin: 8px 0 0;"></p>
+        </div>
+
+        <div class="anc-card" id="eduCard">
+            <span class="anc-tag">EDUKASI TRIMESTER</span>
+            <span class="anc-title" id="eduTitle">Memuat info...</span>
+            <span class="anc-desc" id="eduDesc">...</span>
         </div>
 
         <div class="action-grid">
-            <div class="action-btn" onclick="window.location.href='pelacakanttd.html'">
-                <span class="icon">💊</span>
-                <span class="label">Pelacakan<br>Minum TTD</span>
+            <div class="action-btn" onclick="location.href='pelacakanttd.html'">
+                <span class="icon">💊</span><span class="label">Pelacakan<br>Minum TTD</span>
             </div>
-            <div class="action-btn" onclick="window.location.href='panduangizi.html'">
-                <span class="icon">🥗</span>
-                <span class="label">Panduan<br>Gizi Bumil</span>
+            <div class="action-btn" onclick="location.href='panduangizi.html'">
+                <span class="icon">🥗</span><span class="label">Gizi & Hb<br>Bumil</span>
             </div>
-            <div class="action-btn" onclick="window.location.href='literasiibadah.html'">
-                <span class="icon">📖</span>
-                <span class="label">Literasi &<br>Ibadah</span>
+            <div class="action-btn" onclick="location.href='literasiibadah.html'">
+                <span class="icon">📖</span><span class="label">Literasi &<br>Ibadah</span>
             </div>
-            <div class="action-btn" onclick="window.location.href='verifikasihpl.html'">
-                <span class="icon">🗓️</span>
-                <span class="label">Verifikasi<br>HPL</span>
+            <div class="action-btn" onclick="location.href='inputanc.html'">
+                <span class="icon">🗓️</span><span class="label">Input ANC<br>& Hasil Hb</span>
             </div>
         </div>
 
-        <p class="disclaimer">
-            Aplikasi ini adalah alat bantu monitoring. Konsultasikan hasil pemeriksaan ke bidan atau dokter kandungan Anda di Puskesmas atau rumah sakit terdekat.
-        </p>
+        <p class="disclaimer">Aplikasi ini adalah alat bantu monitoring. Konsultasikan hasil pemeriksaan ke bidan atau dokter kandungan Anda.</p>
     </div>
 </div>
+
+<script>
+    // 1. Kalkulasi Usia Kandungan (Revisi 4 & 7)
+    function calculatePregnancy() {
+        let hpht = localStorage.getItem('hayya_hpht');
+        
+        if (!hpht) {
+            const today = new Date();
+            hpht = today.toISOString().split('T')[0];
+            localStorage.setItem('hayya_hpht', hpht);
+        }
+
+        const startDate = new Date(hpht);
+        const today = new Date();
+        const diffTime = Math.abs(today - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const weeks = Math.floor(diffDays / 7);
+        const days = diffDays % 7;
+
+        const hplDate = new Date(startDate);
+        hplDate.setDate(hplDate.getDate() + 280);
+
+        document.getElementById('weekText').innerText = `${weeks} Minggu ${days} Hari`;
+        document.getElementById('hphtDate').innerText = startDate.toLocaleDateString('id-ID');
+        document.getElementById('hplDate').innerText = hplDate.toLocaleDateString('id-ID');
+        
+        const progress = Math.min((weeks / 40) * 100, 100);
+        document.getElementById('progressBar').style.width = progress + "%";
+
+        let tri = "";
+        let eTitle = "";
+        let eDesc = "";
+
+        if (weeks <= 12) {
+            tri = "TRIMESTER 1";
+            eTitle = "Pencegahan Anemia Dini";
+            eDesc = "Fokus pada konsumsi Asam Folat dan TTD sejak minggu pertama untuk cegah stunting dan anemia.";
+        } else if (weeks <= 27) {
+            tri = "TRIMESTER 2";
+            eTitle = "Optimalisasi Zat Besi";
+            eDesc = "Waspadai pusing dan pucat. Pastikan diet kaya zat besi (Fe) dan cek Hb rutin.";
+        } else {
+            tri = "TRIMESTER 3";
+            eTitle = "Persiapan Persalinan";
+            eDesc = "Waspadai risiko perdarahan jika Hb rendah. Siapkan stamina dan nutrisi jelang hari H.";
+        }
+
+        document.getElementById('trimesterTag').innerText = tri;
+        document.getElementById('eduTitle').innerText = eTitle;
+        document.getElementById('eduDesc').innerText = eDesc;
+    }
+
+    // 2. Sinkronisasi Data dari inputanc.html (Revisi 7)
+    function loadLatestANC() {
+        const savedData = localStorage.getItem('hayya_latest_anc');
+        
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            const card = document.getElementById('latestAncCard');
+            
+            card.style.display = 'block';
+            document.getElementById('displayHb').innerText = data.hb + " g/dL";
+            document.getElementById('displayDate').innerText = "Diperiksa pada: " + data.date;
+            
+            const statusEl = document.getElementById('displayStatus');
+            statusEl.innerText = data.statusAnemia.toUpperCase();
+            statusEl.style.backgroundColor = (data.statusAnemia === "Normal") ? "#4A9B7F" : "#993C1D";
+        }
+    }
+
+    function updateHPHT() {
+        const newHPHT = prompt("Masukkan tanggal HPHT (YYYY-MM-DD):", localStorage.getItem('hayya_hpht'));
+        if (newHPHT) {
+            localStorage.setItem('hayya_hpht', newHPHT);
+            calculatePregnancy();
+        }
+    }
+
+    window.onload = function() {
+        calculatePregnancy();
+        loadLatestANC();
+    };
+</script>
 
 </body>
 </html>
