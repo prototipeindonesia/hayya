@@ -9,12 +9,12 @@
         :root {
             --primary-grad: linear-gradient(135deg, #6C5CE7 0%, #A29BFE 100%);
             --fiqh-haid: #FF7675;
-            --fiqh-suci: #00B894;
+            --fiqh-suci: #00B894; /* Warna hijau untuk status suci */
             --white: #ffffff;
             --text-dark: #2D3436;
             --text-muted: #636E72;
             --soft-bg: #F8F9FD;
-            --shadow: 0 10px 30px rgba(108, 92, 231, 0.1);
+            --shadow: 0 10px 30px rgba(0, 184, 148, 0.1); /* Shadow disesuaikan */
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -36,7 +36,6 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
 
-        /* Top Bar with Back Button */
         .top-bar {
             padding: 50px 20px 10px;
             background: var(--white);
@@ -52,7 +51,6 @@
         .header-title { flex: 1; text-align: center; margin-right: 40px; }
         .header-title h2 { font-size: 14px; font-weight: 800; color: var(--text-dark); margin: 0; text-transform: uppercase; }
 
-        /* Tabs */
         .tabs {
             display: flex; background: var(--white);
             padding: 0 20px; border-bottom: 1px solid #F1F2F6;
@@ -65,7 +63,6 @@
         }
         .tab.active { color: #6C5CE7; border-bottom: 3px solid #6C5CE7; }
 
-        /* Content Area */
         .content { padding: 20px; flex: 1; overflow-y: auto; padding-bottom: 40px;}
 
         .date-badge {
@@ -75,19 +72,18 @@
             margin-bottom: 20px; width: 100%; text-align: center;
         }
 
-        /* Fiqh Result Card */
+        /* Fiqh Result Card Updated to SUCI */
         .fiqh-card {
             background: var(--white); border-radius: 28px;
             padding: 25px 20px; text-align: center;
             box-shadow: var(--shadow); margin-bottom: 25px;
-            border-bottom: 6px solid var(--fiqh-haid);
+            border-bottom: 6px solid var(--fiqh-suci); /* Border hijau */
         }
 
         .fiqh-label { font-size: 10px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .fiqh-status { font-size: 32px; font-weight: 800; color: var(--fiqh-haid); margin: 5px 0; }
+        .fiqh-status { font-size: 32px; font-weight: 800; color: var(--fiqh-suci); margin: 5px 0; }
         .fiqh-subtitle { font-size: 12px; font-weight: 600; color: var(--text-muted); }
 
-        /* Guidelines */
         .guideline-container { display: flex; flex-direction: column; gap: 12px; }
         .guideline-box {
             background: var(--white); border-radius: 24px; padding: 20px;
@@ -97,8 +93,8 @@
             display: flex; justify-content: space-between; align-items: center;
             font-size: 12px; font-weight: 800; margin-bottom: 12px;
         }
-        .dont-title { color: #E74C3C; }
         .do-title { color: #27AE60; }
+        .info-title { color: #0984E3; }
 
         .guideline-list { list-style: none; padding: 0; margin: 0; }
         .list-item {
@@ -108,7 +104,6 @@
         }
         .dot { margin-top: 5px; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 
-        /* Action Buttons */
         .action-group { margin-top: 25px; display: flex; flex-direction: column; gap: 10px; }
         
         .btn-mandi {
@@ -152,31 +147,31 @@
 
         <div class="fiqh-card">
             <div class="fiqh-label">Hukum Syar'i</div>
-            <div class="fiqh-status">HAID</div>
-            <div class="fiqh-subtitle">Hari ke-5 (Masa Adat)</div>
+            <div class="fiqh-status">SUCI</div>
+            <div class="fiqh-subtitle">Masa Bersih (Wajib Ibadah)</div>
         </div>
 
         <div class="guideline-container">
             <div class="guideline-box">
-                <div class="box-title dont-title">
-                    <span>DILARANG (DON'T)</span>
-                    <span>❌</span>
+                <div class="box-title do-title">
+                    <span>KEWAJIBAN IBADAH</span>
+                    <span>✅</span>
                 </div>
                 <ul class="guideline-list">
-                    <li class="list-item"><div class="dot" style="background:#E74C3C"></div> Shalat Fardhu & Sunnah</li>
-                    <li class="list-item"><div class="dot" style="background:#E74C3C"></div> Puasa (Wajib qadha di bulan lain)</li>
-                    <li class="list-item"><div class="dot" style="background:#E74C3C"></div> Berdiam di Masjid & Tawaf</li>
+                    <li class="list-item"><div class="dot" style="background:#27AE60"></div> Shalat Fardhu 5 Waktu</li>
+                    <li class="list-item"><div class="dot" style="background:#27AE60"></div> Puasa (Wajib & Sunnah)</li>
+                    <li class="list-item"><div class="dot" style="background:#27AE60"></div> Membaca & Memegang Al-Qur'an</li>
                 </ul>
             </div>
 
             <div class="guideline-box">
-                <div class="box-title do-title">
-                    <span>DIANJURKAN (DO)</span>
-                    <span>✅</span>
+                <div class="box-title info-title">
+                    <span>CATATAN ADAT</span>
+                    <span>ℹ️</span>
                 </div>
                 <ul class="guideline-list">
-                    <li class="list-item"><div class="dot" style="background:#27AE60"></div> Membaca Dzikir Pagi & Petang</li>
-                    <li class="list-item"><div class="dot" style="background:#27AE60"></div> Mendengarkan Kajian Islam</li>
+                    <li class="list-item"><div class="dot" style="background:#0984E3"></div> Pastikan telah Mandi Wajib setelah haid berhenti</li>
+                    <li class="list-item"><div class="dot" style="background:#0984E3"></div> Pantau jika muncul flek di luar masa adat</li>
                 </ul>
             </div>
         </div>
@@ -191,7 +186,7 @@
         </div>
 
         <div class="disclaimer-fiqh">
-            Berdasarkan Mazhab Syafi'i. Jika pendarahan melebihi 15 hari, status hukum berubah menjadi Istihadhah.
+            Berdasarkan Mazhab Syafi'i. Tetap pantau kebersihan diri untuk menjaga keabsahan ibadah harian Anda.
         </div>
     </div>
 </div>
